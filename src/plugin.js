@@ -9,13 +9,13 @@ class WoopackAngularJSPlugin {
    */
   constructor() {
     /**
-     * The name of the event reducer the service uses to reduce the loader configuration after
-     * modifying it.
+     * The name of the reducer event the service uses to reduce the rules configuration after
+     * creating it.
      * @type {String}
      */
-    this.eventName = 'webpack-js-loaders-configuration-for-browser';
+    this.eventName = 'webpack-js-rules-configuration-for-browser';
     /**
-     * The required value a target `framework` property needs to have in order for the plugin to
+     * The required value a target `framework` setting needs to have in order for the plugin to
      * take action.
      * @type {String}
      */
@@ -44,61 +44,61 @@ class WoopackAngularJSPlugin {
   }
   /**
    * This is the method called when the plugin is loaded by Woopack. It just gets the events service
-   * and registers a listener for the event reducer that handles JS loaders for browser targets.
+   * and registers a listener for the reducer event that handles JS rules for browser targets.
    * @param {Woopack} app The Woopack main container.
    */
   register(app) {
     const events = app.get('events');
     events.on(
       this.eventName,
-      (loaders, params) => this.updateLoaders(loaders, params.target)
+      (rules, params) => this.updateRules(rules, params.target)
     );
   }
   /**
-   * This method gets called when Woopack reduces the JS loaders for browser targets. It
-   * validates the target, adds the loader and modifies, if necessary, the configuration for
+   * This method gets called when Woopack reduces the JS rules for browser targets. It
+   * validates the target, adds the plugin loader and modifies, if necessary, the configuration for
    * Babel.
-   * @param {Array}  currentLoaders The list of JS loaders for the Webpack configuration.
+   * @param {Array}  currentRules The list of JS loaders for the Webpack configuration.
    * @param {Target} target         The target information.
    * @return {Array} The updated list of loaders.
    */
-  updateLoaders(currentLoaders, target) {
-    let updatedLoaders;
+  updateRules(currentRules, target) {
+    let updatedRules;
     /**
-     * If the target has a valid type, the right `framework` property and there are loaders
+     * If the target has a valid type, the right `framework` setting and there are rules
      * to modify...
      */
     if (
       target.is.browser &&
       target.framework === this.frameworkProperty &&
-      currentLoaders.length
+      currentRules.length
     ) {
-      // ...copy the list of loaders.
-      updatedLoaders = currentLoaders.slice();
-      // Get the first loader of the list (there's usually only one).
-      const [baseJSLoader] = updatedLoaders;
-      // Push the AngularJS loader as first on the list.
-      baseJSLoader.use.unshift(this.loaderName);
+      // ...copy the list of rules.
+      updatedRules = currentRules.slice();
+      // Get the first rule of the list (there's usually only one).
+      const [baseJSRule] = updatedRules;
+      // Push the AngularJS loader as first on the rule list of loaders.
+      baseJSRule.use.unshift(this.loaderName);
       // Get the index of the Babel loader.
-      const babelLoaderIndex = this._findBabelLoaderIndex(baseJSLoader.use);
+      const babelLoaderIndex = this._findBabelLoaderIndex(baseJSRule.use);
       // If the Babel loader is present...
       if (babelLoaderIndex > -1) {
         // ...replace it with an updated version.
-        baseJSLoader.use[babelLoaderIndex] = this._updateBabelLoader(
-          baseJSLoader.use[babelLoaderIndex]
+        baseJSRule.use[babelLoaderIndex] = this._updateBabelLoader(
+          baseJSRule.use[babelLoaderIndex]
         );
       }
     } else {
       // ...otherwise, just set to return the received loaders.
-      updatedLoaders = currentLoaders;
+      updatedRules = currentRules;
     }
 
-    return updatedLoaders;
+    return updatedRules;
   }
   /**
    * Finds the index of the Babel loader in a list of loaders.
    * @param {Array} loaders The list of loaders.
-   * @return {Number}
+   * @return {number}
    * @ignore
    * @access protected
    */
@@ -113,7 +113,7 @@ class WoopackAngularJSPlugin {
    * Updates an existing Babel loader configuration with the required transformations the
    * AngularJS loader needs in order to work.
    * The method will only modify the loader if is not on a string format, has an `options`
-   * object and, doesn't have any preset or has the `env` preset.
+   * object and doesn't have any preset or has the `env` preset.
    * @param {Object|String} babelLoader The loader to update.
    * @return {Object|String}
    * @ignore

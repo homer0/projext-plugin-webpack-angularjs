@@ -12,7 +12,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     // Then
     expect(sut).toBeInstanceOf(WoopackAngularJSPlugin);
-    expect(sut.eventName).toBe('webpack-js-loaders-configuration-for-browser');
+    expect(sut.eventName).toBe('webpack-js-rules-configuration-for-browser');
     expect(sut.frameworkProperty).toBe('angularjs');
     expect(sut.loaderName).toBe('ng-annotate-loader');
     expect(sut.babelLoaderName).toBe('babel-loader');
@@ -42,7 +42,7 @@ describe('plugin:woopackAngularJS/main', () => {
     expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
-  it('should update the JS loaders of a browser target', () => {
+  it('should update the JS rules of a browser target', () => {
     // Given
     const events = {
       on: jest.fn(),
@@ -62,7 +62,7 @@ describe('plugin:woopackAngularJS/main', () => {
         'some-random-loader',
       ],
     };
-    const currentLoaders = [currentJSLoader];
+    const currentRules = [currentJSLoader];
     let sut = null;
     let reducer = null;
     let result = null;
@@ -76,7 +76,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
     expect(app.get).toHaveBeenCalledTimes(1);
@@ -85,7 +85,7 @@ describe('plugin:woopackAngularJS/main', () => {
     expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
-  it('shouldn\'t modify the loaders if the target is not for browser', () => {
+  it('shouldn\'t modify the rules if the target is not for browser', () => {
     // Given
     const events = {
       on: jest.fn(),
@@ -99,7 +99,7 @@ describe('plugin:woopackAngularJS/main', () => {
       },
       framework: 'angularjs',
     };
-    const currentLoaders = [{
+    const currentRules = [{
       test: /\.jsx?$/i,
       use: [
         'some-random-loader',
@@ -112,16 +112,16 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
-    expect(result).toEqual(currentLoaders);
+    expect(result).toEqual(currentRules);
     expect(app.get).toHaveBeenCalledTimes(1);
     expect(app.get).toHaveBeenCalledWith('events');
     expect(events.on).toHaveBeenCalledTimes(1);
     expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
-  it('should update the JS loaders of a browser target and add the Babel required features', () => {
+  it('should update the JS rules of a browser target and add the Babel required features', () => {
     // Given
     const events = {
       on: jest.fn(),
@@ -144,7 +144,7 @@ describe('plugin:woopackAngularJS/main', () => {
         },
       ],
     };
-    const currentLoaders = [currentJSLoader];
+    const currentRules = [currentJSLoader];
     let sut = null;
     let reducer = null;
     let result = null;
@@ -171,7 +171,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
     expect(app.get).toHaveBeenCalledTimes(1);
@@ -209,7 +209,7 @@ describe('plugin:woopackAngularJS/main', () => {
         },
       ],
     };
-    const currentLoaders = [currentJSLoader];
+    const currentRules = [currentJSLoader];
     let sut = null;
     let reducer = null;
     let result = null;
@@ -223,7 +223,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
     expect(app.get).toHaveBeenCalledTimes(1);
@@ -267,7 +267,7 @@ describe('plugin:woopackAngularJS/main', () => {
         },
       ],
     };
-    const currentLoaders = [currentJSLoader];
+    const currentRules = [currentJSLoader];
     let sut = null;
     let reducer = null;
     let result = null;
@@ -297,7 +297,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
     expect(app.get).toHaveBeenCalledTimes(1);
@@ -326,7 +326,7 @@ describe('plugin:woopackAngularJS/main', () => {
         'babel-loader',
       ],
     };
-    const currentLoaders = [currentJSLoader];
+    const currentRules = [currentJSLoader];
     let sut = null;
     let reducer = null;
     let result = null;
@@ -340,7 +340,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
     expect(app.get).toHaveBeenCalledTimes(1);
@@ -371,7 +371,7 @@ describe('plugin:woopackAngularJS/main', () => {
         },
       ],
     };
-    const currentLoaders = [currentJSLoader];
+    const currentRules = [currentJSLoader];
     let sut = null;
     let reducer = null;
     let result = null;
@@ -385,7 +385,7 @@ describe('plugin:woopackAngularJS/main', () => {
     sut = new WoopackAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentLoaders, { target });
+    result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
     expect(app.get).toHaveBeenCalledTimes(1);
