@@ -11,23 +11,23 @@ class WoopackAngularJSPlugin {
     /**
      * The name of the reducer event the service uses to reduce the rules configuration after
      * creating it.
-     * @type {String}
+     * @type {string}
      */
     this.eventName = 'webpack-js-rules-configuration-for-browser';
     /**
      * The required value a target `framework` setting needs to have in order for the plugin to
      * take action.
-     * @type {String}
+     * @type {string}
      */
     this.frameworkProperty = 'angularjs';
     /**
      * The name of the loader the plugin adds to the Webpack configuration.
-     * @type {String}
+     * @type {string}
      */
     this.loaderName = 'ng-annotate-loader';
     /**
      * The name of the loader with the Babel configurations.
-     * @type {String}
+     * @type {string}
      */
     this.babelLoaderName = 'babel-loader';
     /**
@@ -114,8 +114,8 @@ class WoopackAngularJSPlugin {
    * AngularJS loader needs in order to work.
    * The method will only modify the loader if is not on a string format, has an `options`
    * object and doesn't have any preset or has the `env` preset.
-   * @param {Object|String} babelLoader The loader to update.
-   * @return {Object|String}
+   * @param {Object|string} babelLoader The loader to update.
+   * @return {Object|string}
    * @ignore
    * @access protected
    */

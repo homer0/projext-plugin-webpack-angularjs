@@ -1,6 +1,6 @@
 {
     "name": "woopack-plugin-webpack-angularjs",
-    "description": "...",
+    "description": "Allows you to bundle an AngularJS project with woopack using the webpack build engine.",
     "version": "0.0.5",
     "repository": "homer0/woopack-plugin-webpack-angularjs",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
@@ -35,6 +35,7 @@
       "install-hooks": "./utils/hooks/install",
       "test": "./utils/scripts/test",
       "lint": "./utils/scripts/lint",
+      "lint:full": "./utils/scripts/lint-full",
       "docs": "./utils/scripts/docs"
     }
 }
