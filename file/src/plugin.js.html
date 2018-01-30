@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/plugin.js | woopack-plugin-webpack-angularjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows you to bundle an AngularJS project with woopack using the webpack build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack-plugin-webpack-angularjs"><meta property="twitter:description" content="Allows you to bundle an AngularJS project with woopack using the webpack build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack-plugin-webpack-angularjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~WoopackAngularJSPlugin.html">WoopackAngularJSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/woopack/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/woopack/class/src/app/index.js~Woopack.html">Woopack</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/plugin.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * This service is in charge of adding the required loader to handle AngularJS inject annotations
+ * and updating a target Babel configuration so the loader will work.
+ */
+class WoopackAngularJSPlugin {
+  /**
+   * Class constructor.
+   * @ignore
+   */
+  constructor() {
+    /**
+     * The name of the reducer event the service uses to reduce the rules configuration after
+     * creating it.
+     * @type {string}
+     */
+    this.eventName = &apos;webpack-js-rules-configuration-for-browser&apos;;
+    /**
+     * The required value a target `framework` setting needs to have in order for the plugin to
+     * take action.
+     * @type {string}
+     */
+    this.frameworkProperty = &apos;angularjs&apos;;
+    /**
+     * The name of the loader the plugin adds to the Webpack configuration.
+     * @type {string}
+     */
+    this.loaderName = &apos;ng-annotate-loader&apos;;
+    /**
+     * The name of the loader with the Babel configurations.
+     * @type {string}
+     */
+    this.babelLoaderName = &apos;babel-loader&apos;;
+    /**
+     * The list of transformations the loader needs in order to work. The loader only works with
+     * standard `function` statements, so it&apos;s necessary for Babel to transpile the following things
+     * into `function`s so the loader can inject the annotations.
+     * @type {Array}
+     */
+    this.babelRequiredIncludedFeatures = [
+      &apos;transform-es2015-arrow-functions&apos;,
+      &apos;transform-es2015-classes&apos;,
+      &apos;transform-es2015-parameters&apos;,
+    ];
+  }
+  /**
+   * This is the method called when the plugin is loaded by Woopack. It just gets the events service
+   * and registers a listener for the reducer event that handles JS rules for browser targets.
+   * @param {Woopack} app The Woopack main container.
+   */
+  register(app) {
+    const events = app.get(&apos;events&apos;);
+    events.on(
+      this.eventName,
+      (rules, params) =&gt; this.updateRules(rules, params.target)
+    );
+  }
+  /**
+   * This method gets called when Woopack reduces the JS rules for browser targets. It
+   * validates the target, adds the plugin loader and modifies, if necessary, the configuration for
+   * Babel.
+   * @param {Array}  currentRules The list of JS loaders for the Webpack configuration.
+   * @param {Target} target         The target information.
+   * @return {Array} The updated list of loaders.
+   */
+  updateRules(currentRules, target) {
+    let updatedRules;
+    /**
+     * If the target has a valid type, the right `framework` setting and there are rules
+     * to modify...
+     */
+    if (
+      target.is.browser &amp;&amp;
+      target.framework === this.frameworkProperty &amp;&amp;
+      currentRules.length
+    ) {
+      // ...copy the list of rules.
+      updatedRules = currentRules.slice();
+      // Get the first rule of the list (there&apos;s usually only one).
+      const [baseJSRule] = updatedRules;
+      // Push the AngularJS loader as first on the rule list of loaders.
+      baseJSRule.use.unshift(this.loaderName);
+      // Get the index of the Babel loader.
+      const babelLoaderIndex = this._findBabelLoaderIndex(baseJSRule.use);
+      // If the Babel loader is present...
+      if (babelLoaderIndex &gt; -1) {
+        // ...replace it with an updated version.
+        baseJSRule.use[babelLoaderIndex] = this._updateBabelLoader(
+          baseJSRule.use[babelLoaderIndex]
+        );
+      }
+    } else {
+      // ...otherwise, just set to return the received loaders.
+      updatedRules = currentRules;
+    }
+
+    return updatedRules;
+  }
+  /**
+   * Finds the index of the Babel loader in a list of loaders.
+   * @param {Array} loaders The list of loaders.
+   * @return {number}
+   * @ignore
+   * @access protected
+   */
+  _findBabelLoaderIndex(loaders) {
+    return loaders.findIndex((loader) =&gt; {
+      const isString = typeof loader === &apos;string&apos;;
+      return (isString &amp;&amp; loader === this.babelLoaderName) ||
+        (!isString &amp;&amp; loader.loader === this.babelLoaderName);
+    });
+  }
+  /**
+   * Updates an existing Babel loader configuration with the required transformations the
+   * AngularJS loader needs in order to work.
+   * The method will only modify the loader if is not on a string format, has an `options`
+   * object and doesn&apos;t have any preset or has the `env` preset.
+   * @param {Object|string} babelLoader The loader to update.
+   * @return {Object|string}
+   * @ignore
+   * @access protected
+   */
+  _updateBabelLoader(babelLoader) {
+    let updatedLoader;
+    /**
+     * If the loader is a `string` or it doesn&apos;t have an `options` property, then the project uses
+     * an external `.babelrc`, so it won&apos;t be updated.
+     */
+    if (typeof babelLoader !== &apos;string&apos; &amp;&amp; babelLoader.options) {
+      // Access the loader options.
+      const { options } = babelLoader;
+      // Define some validation flags.
+      let needsPresets = false;
+      let hasEnvPreset = false;
+      let envPresetIndex = -1;
+      // If there are presets options...
+      if (options.presets &amp;&amp; options.presets.length) {
+        // ...find the index of the `env` preset.
+        envPresetIndex = options.presets.findIndex((preset) =&gt; {
+          const [presentName] = preset;
+          return presentName === &apos;env&apos;;
+        });
+        // Validate that the `env` preset is on the options.
+        hasEnvPreset = envPresetIndex &gt; -1;
+      } else {
+        // ...otherwise, the options needs presets.
+        needsPresets = true;
+      }
+      // If there&apos;s an `env` preset to configure or no presets at all...
+      if (needsPresets || hasEnvPreset) {
+        // ...start updating the options.
+        let presetOptions;
+        // If there are no presets...
+        if (needsPresets) {
+          // ...create an empty object to work with.
+          presetOptions = {};
+        } else {
+          // ...otherwise, get the current `env` preset configuration.
+          const [, currentEnvPresetOptions] = options.presets[envPresetIndex];
+          // copy the configuration into a new reference.
+          presetOptions = Object.assign({}, currentEnvPresetOptions);
+        }
+        /**
+         * From this point forward, we assume we have a configuration for the `env` preset.
+         * If the configuration already has an `include` setting...
+         */
+        if (presetOptions.include) {
+          // ...we only push the required transformations that are not already present.
+          this.babelRequiredIncludedFeatures.forEach((feature) =&gt; {
+            if (!presetOptions.include.includes(feature)) {
+              presetOptions.include.push(feature);
+            }
+          });
+        } else {
+          // ...we copy the list of required transformations.
+          presetOptions.include = this.babelRequiredIncludedFeatures.slice();
+        }
+        // Set the object to be returned as a copy of the one received.
+        updatedLoader = Object.assign({}, babelLoader);
+        // Declare the new `env` preset.
+        const newEnvPreset = [&apos;env&apos;, presetOptions];
+        // If it didn&apos;t have any presets...
+        if (needsPresets) {
+          // ...create a new presets list with the new `env` preset.
+          updatedLoader.options.presets = [newEnvPreset];
+        } else {
+          // ...otherwise, replace the existing `env` preset with the new and updated one.
+          updatedLoader.options.presets[envPresetIndex] = newEnvPreset;
+        }
+      } else {
+        updatedLoader = babelLoader;
+      }
+    } else {
+      updatedLoader = babelLoader;
+    }
+
+    return updatedLoader;
+  }
+}
+
+module.exports = WoopackAngularJSPlugin;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

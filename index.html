@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | woopack-plugin-webpack-angularjs</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Allows you to bundle an AngularJS project with woopack using the webpack build engine."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack-plugin-webpack-angularjs"><meta property="twitter:description" content="Allows you to bundle an AngularJS project with woopack using the webpack build engine."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack-plugin-webpack-angularjs"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~WoopackAngularJSPlugin.html">WoopackAngularJSPlugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/woopack/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/woopack/class/src/app/index.js~Woopack.html">Woopack</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="woopack-plugin-for-angularjs-on-webpack">woopack plugin for AngularJS on webpack</h1><p>Allows you to bundle an <a href="https://angularjs.org">AngularJS</a> project with <a href="https://yarnpkg.com/en/package/woopack">woopack</a> using the <a href="https://webpack.js.org">webpack</a> <a href="https://yarnpkg.com/en/package/woopack-plugin-webpack">build engine</a>.</p>
+<h2 id="introduction">Introduction</h2><p><a href="https://yarnpkg.com/en/package/woopack">woopack</a> allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an <a href="https://angularjs.org">AngularJS</a> and you are using the <a href="https://webpack.js.org">webpack</a> <a href="https://yarnpkg.com/en/package/woopack-plugin-webpack">build engine</a>.</p>
+<p>It adds the <a href="https://yarnpkg.com/en/package/ng-annotate-loader"><code>ng-annotate-loader</code></a> package to your target configuration and takes care of updating the <a href="https://yarnpkg.com/en/package/babel-loader"><code>babel-loader</code></a> so the make the target transpilation compatible with the annotations loader.</p>
+<p>Now you can use the <code>ngInject</code> directive on your code to inject your dependencies</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">class MyService {
+  constructor($http, $q) {
+    &apos;ngInject&apos;;
+
+    this.$http = $http;
+    this.$q = $q;
+    ...
+  }
+  ...
+}</code>
+</code></pre>
+<h2 id="information">Information</h2><table>
+<thead>
+<tr>
+<th>-</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Package</td>
+<td>woopack-plugin-webpack-angularjs</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Allows you to bundle an AngularJS project with woopack using the webpack build engine.</td>
+</tr>
+<tr>
+<td>Node Version</td>
+<td>&gt;= v6.10.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2><ol>
+<li>You first need the build engine, so install <a href="https://yarnpkg.com/en/package/woopack-plugin-webpack"><code>woopack-plugin-webpack</code></a>.</li>
+<li>If you changed, set your target <code>engine</code> setting to <code>webpack</code>.</li>
+<li>Add a new setting to your target named <code>framework</code> and set its value to <code>angularjs</code>.</li>
+<li>Done</li>
+</ol>
+<p>Now, when your target gets builded, the plugin will check if the target is using webpack and if the framework is AngularJS, then it will add the required loader and configure the transpilation options.</p>
+<h3 id="babel">Babel</h3><p>The <a href="https://yarnpkg.com/en/package/ng-annotate-loader"><code>ng-annotate-loader</code></a> package only works on <code>function</code> statements, that&apos;s why it needs to update the configuration of the <a href="https://yarnpkg.com/en/package/babel-loader"><code>babel-loader</code></a> in order to work.</p>
+<p>Let&apos;s say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn&apos;t be transpiled.</p>
+<p>If for some reason you are overwriting the <a href="https://babeljs.io">Babel</a> configuration woopack generates, you need to make sure the following transformations are included:</p>
+<ul>
+<li><code>transform-es2015-arrow-functions</code></li>
+<li><code>transform-es2015-classes</code></li>
+<li><code>transform-es2015-parameters</code></li>
+</ul>
+<h2 id="development">Development</h2><p>Before doing anything, install the repository hooks:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint"># You can either use npm or yarn, it doesn&apos;t matter
+npm run install-hooks</code>
+</code></pre>
+<h3 id="npm-yarn-tasks">NPM/Yarn Tasks</h3><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>npm run install-hooks</code></td>
+<td>Install the GIT repository hooks.</td>
+</tr>
+<tr>
+<td><code>npm test</code></td>
+<td>Run the project unit tests.</td>
+</tr>
+<tr>
+<td><code>npm run lint</code></td>
+<td>Lint the modified files.</td>
+</tr>
+<tr>
+<td><code>npm run lint:full</code></td>
+<td>Lint the project code.</td>
+</tr>
+<tr>
+<td><code>npm run docs</code></td>
+<td>Generate the project documentation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="testing">Testing</h3><p>I use <a href="https://facebook.github.io/jest/">Jest</a> with <a href="https://yarnpkg.com/en/package/jest-ex">Jest-Ex</a> to test the project. The configuration file is on <code>./.jestrc</code>, the tests and mocks are on <code>./tests</code> and the script that runs it is on <code>./utils/scripts/test</code>.</p>
+<h3 id="linting">Linting</h3><p>I use <a href="http://eslint.org">ESlint</a> to validate all our JS code. The configuration file for the project code is on <code>./.eslintrc</code> and for the tests on <code>./tests/.eslintrc</code> (which inherits from the one on the root), there&apos;s also an <code>./.eslintignore</code> to ignore some files on the process, and the script that runs it is on <code>./utils/scripts/lint</code>.</p>
+<h3 id="documentation">Documentation</h3><p>I use <a href="http://esdoc.org">ESDoc</a> to generate HTML documentation for the project. The configuration file is on <code>./.esdocrc</code> and the script that runs it is on <code>./utils/scripts/docs</code>.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

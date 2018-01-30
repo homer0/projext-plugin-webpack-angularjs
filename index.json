@@ -1,0 +1,930 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "const WoopackAngularJSPlugin = require('./plugin');\n/**\n * This is the method called by Woopack when loading the plugin and it takes care of creating\n * a new instance of the plugin main class and using it to register on Woopack.\n * @param {Woopack} app The Woopack main container.\n * @ignore\n */\nconst loadPlugin = (app) => {\n  const plugin = new WoopackAngularJSPlugin();\n  plugin.register(app);\n};\n\nmodule.exports = loadPlugin;\n",
+    "static": true,
+    "longname": "/Users/homer0/CODE/Node/woopack/woopack-plugin-webpack-angularjs/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "function",
+    "name": "loadPlugin",
+    "memberof": "src/index.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/index.js~loadPlugin",
+    "access": "public",
+    "export": true,
+    "importPath": "woopack-plugin-webpack-angularjs",
+    "importStyle": "loadPlugin",
+    "description": "This is the method called by Woopack when loading the plugin and it takes care of creating\na new instance of the plugin main class and using it to register on Woopack.",
+    "lineNumber": 8,
+    "ignore": true,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Woopack"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "app",
+        "description": "The Woopack main container."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 50,
+    "kind": "file",
+    "name": "src/plugin.js",
+    "content": "/**\n * This service is in charge of adding the required loader to handle AngularJS inject annotations\n * and updating a target Babel configuration so the loader will work.\n */\nclass WoopackAngularJSPlugin {\n  /**\n   * Class constructor.\n   * @ignore\n   */\n  constructor() {\n    /**\n     * The name of the reducer event the service uses to reduce the rules configuration after\n     * creating it.\n     * @type {string}\n     */\n    this.eventName = 'webpack-js-rules-configuration-for-browser';\n    /**\n     * The required value a target `framework` setting needs to have in order for the plugin to\n     * take action.\n     * @type {string}\n     */\n    this.frameworkProperty = 'angularjs';\n    /**\n     * The name of the loader the plugin adds to the Webpack configuration.\n     * @type {string}\n     */\n    this.loaderName = 'ng-annotate-loader';\n    /**\n     * The name of the loader with the Babel configurations.\n     * @type {string}\n     */\n    this.babelLoaderName = 'babel-loader';\n    /**\n     * The list of transformations the loader needs in order to work. The loader only works with\n     * standard `function` statements, so it's necessary for Babel to transpile the following things\n     * into `function`s so the loader can inject the annotations.\n     * @type {Array}\n     */\n    this.babelRequiredIncludedFeatures = [\n      'transform-es2015-arrow-functions',\n      'transform-es2015-classes',\n      'transform-es2015-parameters',\n    ];\n  }\n  /**\n   * This is the method called when the plugin is loaded by Woopack. It just gets the events service\n   * and registers a listener for the reducer event that handles JS rules for browser targets.\n   * @param {Woopack} app The Woopack main container.\n   */\n  register(app) {\n    const events = app.get('events');\n    events.on(\n      this.eventName,\n      (rules, params) => this.updateRules(rules, params.target)\n    );\n  }\n  /**\n   * This method gets called when Woopack reduces the JS rules for browser targets. It\n   * validates the target, adds the plugin loader and modifies, if necessary, the configuration for\n   * Babel.\n   * @param {Array}  currentRules The list of JS loaders for the Webpack configuration.\n   * @param {Target} target         The target information.\n   * @return {Array} The updated list of loaders.\n   */\n  updateRules(currentRules, target) {\n    let updatedRules;\n    /**\n     * If the target has a valid type, the right `framework` setting and there are rules\n     * to modify...\n     */\n    if (\n      target.is.browser &&\n      target.framework === this.frameworkProperty &&\n      currentRules.length\n    ) {\n      // ...copy the list of rules.\n      updatedRules = currentRules.slice();\n      // Get the first rule of the list (there's usually only one).\n      const [baseJSRule] = updatedRules;\n      // Push the AngularJS loader as first on the rule list of loaders.\n      baseJSRule.use.unshift(this.loaderName);\n      // Get the index of the Babel loader.\n      const babelLoaderIndex = this._findBabelLoaderIndex(baseJSRule.use);\n      // If the Babel loader is present...\n      if (babelLoaderIndex > -1) {\n        // ...replace it with an updated version.\n        baseJSRule.use[babelLoaderIndex] = this._updateBabelLoader(\n          baseJSRule.use[babelLoaderIndex]\n        );\n      }\n    } else {\n      // ...otherwise, just set to return the received loaders.\n      updatedRules = currentRules;\n    }\n\n    return updatedRules;\n  }\n  /**\n   * Finds the index of the Babel loader in a list of loaders.\n   * @param {Array} loaders The list of loaders.\n   * @return {number}\n   * @ignore\n   * @access protected\n   */\n  _findBabelLoaderIndex(loaders) {\n    return loaders.findIndex((loader) => {\n      const isString = typeof loader === 'string';\n      return (isString && loader === this.babelLoaderName) ||\n        (!isString && loader.loader === this.babelLoaderName);\n    });\n  }\n  /**\n   * Updates an existing Babel loader configuration with the required transformations the\n   * AngularJS loader needs in order to work.\n   * The method will only modify the loader if is not on a string format, has an `options`\n   * object and doesn't have any preset or has the `env` preset.\n   * @param {Object|string} babelLoader The loader to update.\n   * @return {Object|string}\n   * @ignore\n   * @access protected\n   */\n  _updateBabelLoader(babelLoader) {\n    let updatedLoader;\n    /**\n     * If the loader is a `string` or it doesn't have an `options` property, then the project uses\n     * an external `.babelrc`, so it won't be updated.\n     */\n    if (typeof babelLoader !== 'string' && babelLoader.options) {\n      // Access the loader options.\n      const { options } = babelLoader;\n      // Define some validation flags.\n      let needsPresets = false;\n      let hasEnvPreset = false;\n      let envPresetIndex = -1;\n      // If there are presets options...\n      if (options.presets && options.presets.length) {\n        // ...find the index of the `env` preset.\n        envPresetIndex = options.presets.findIndex((preset) => {\n          const [presentName] = preset;\n          return presentName === 'env';\n        });\n        // Validate that the `env` preset is on the options.\n        hasEnvPreset = envPresetIndex > -1;\n      } else {\n        // ...otherwise, the options needs presets.\n        needsPresets = true;\n      }\n      // If there's an `env` preset to configure or no presets at all...\n      if (needsPresets || hasEnvPreset) {\n        // ...start updating the options.\n        let presetOptions;\n        // If there are no presets...\n        if (needsPresets) {\n          // ...create an empty object to work with.\n          presetOptions = {};\n        } else {\n          // ...otherwise, get the current `env` preset configuration.\n          const [, currentEnvPresetOptions] = options.presets[envPresetIndex];\n          // copy the configuration into a new reference.\n          presetOptions = Object.assign({}, currentEnvPresetOptions);\n        }\n        /**\n         * From this point forward, we assume we have a configuration for the `env` preset.\n         * If the configuration already has an `include` setting...\n         */\n        if (presetOptions.include) {\n          // ...we only push the required transformations that are not already present.\n          this.babelRequiredIncludedFeatures.forEach((feature) => {\n            if (!presetOptions.include.includes(feature)) {\n              presetOptions.include.push(feature);\n            }\n          });\n        } else {\n          // ...we copy the list of required transformations.\n          presetOptions.include = this.babelRequiredIncludedFeatures.slice();\n        }\n        // Set the object to be returned as a copy of the one received.\n        updatedLoader = Object.assign({}, babelLoader);\n        // Declare the new `env` preset.\n        const newEnvPreset = ['env', presetOptions];\n        // If it didn't have any presets...\n        if (needsPresets) {\n          // ...create a new presets list with the new `env` preset.\n          updatedLoader.options.presets = [newEnvPreset];\n        } else {\n          // ...otherwise, replace the existing `env` preset with the new and updated one.\n          updatedLoader.options.presets[envPresetIndex] = newEnvPreset;\n        }\n      } else {\n        updatedLoader = babelLoader;\n      }\n    } else {\n      updatedLoader = babelLoader;\n    }\n\n    return updatedLoader;\n  }\n}\n\nmodule.exports = WoopackAngularJSPlugin;\n",
+    "static": true,
+    "longname": "/Users/homer0/CODE/Node/woopack/woopack-plugin-webpack-angularjs/src/plugin.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 51,
+    "kind": "class",
+    "name": "WoopackAngularJSPlugin",
+    "memberof": "src/plugin.js",
+    "static": true,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin",
+    "access": "public",
+    "export": true,
+    "importPath": "woopack-plugin-webpack-angularjs/src/plugin.js",
+    "importStyle": "WoopackAngularJSPlugin",
+    "description": "This service is in charge of adding the required loader to handle AngularJS inject annotations\nand updating a target Babel configuration so the loader will work.",
+    "lineNumber": 5,
+    "interface": false
+  },
+  {
+    "__docId__": 52,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#constructor",
+    "access": "public",
+    "description": "Class constructor.",
+    "lineNumber": 10,
+    "ignore": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "member",
+    "name": "eventName",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#eventName",
+    "access": "public",
+    "description": "The name of the reducer event the service uses to reduce the rules configuration after\ncreating it.",
+    "lineNumber": 16,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "member",
+    "name": "frameworkProperty",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#frameworkProperty",
+    "access": "public",
+    "description": "The required value a target `framework` setting needs to have in order for the plugin to\ntake action.",
+    "lineNumber": 22,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "member",
+    "name": "loaderName",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#loaderName",
+    "access": "public",
+    "description": "The name of the loader the plugin adds to the Webpack configuration.",
+    "lineNumber": 27,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "member",
+    "name": "babelLoaderName",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#babelLoaderName",
+    "access": "public",
+    "description": "The name of the loader with the Babel configurations.",
+    "lineNumber": 32,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "babelRequiredIncludedFeatures",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#babelRequiredIncludedFeatures",
+    "access": "public",
+    "description": "The list of transformations the loader needs in order to work. The loader only works with\nstandard `function` statements, so it's necessary for Babel to transpile the following things\ninto `function`s so the loader can inject the annotations.",
+    "lineNumber": 39,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "name": "register",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#register",
+    "access": "public",
+    "description": "This is the method called when the plugin is loaded by Woopack. It just gets the events service\nand registers a listener for the reducer event that handles JS rules for browser targets.",
+    "lineNumber": 50,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Woopack"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "app",
+        "description": "The Woopack main container."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "name": "updateRules",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#updateRules",
+    "access": "public",
+    "description": "This method gets called when Woopack reduces the JS rules for browser targets. It\nvalidates the target, adds the plugin loader and modifies, if necessary, the configuration for\nBabel.",
+    "lineNumber": 65,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "currentRules",
+        "description": "The list of JS loaders for the Webpack configuration."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Target"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "target",
+        "description": "The target information."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": "The updated list of loaders."
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "name": "_findBabelLoaderIndex",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#_findBabelLoaderIndex",
+    "access": "protected",
+    "description": "Finds the index of the Babel loader in a list of loaders.",
+    "lineNumber": 105,
+    "ignore": true,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "loaders",
+        "description": "The list of loaders."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "_updateBabelLoader",
+    "memberof": "src/plugin.js~WoopackAngularJSPlugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~WoopackAngularJSPlugin#_updateBabelLoader",
+    "access": "protected",
+    "description": "Updates an existing Babel loader configuration with the required transformations the\nAngularJS loader needs in order to work.\nThe method will only modify the loader if is not on a string format, has an `options`\nobject and doesn't have any preset or has the `env` preset.",
+    "lineNumber": 122,
+    "ignore": true,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object",
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "babelLoader",
+        "description": "The loader to update."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object",
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "file",
+    "name": "src/typedef.js",
+    "content": "/**\n * @external {Woopack}\n * https://homer0.github.io/woopack/class/src/app/index.js~Woopack.html\n */\n\n/**\n * @external {Target}\n * https://homer0.github.io/woopack/typedef/index.html#static-typedef-Target\n */\n",
+    "static": true,
+    "longname": "/Users/homer0/CODE/Node/woopack/woopack-plugin-webpack-angularjs/src/typedef.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 63,
+    "kind": "external",
+    "name": "Woopack",
+    "externalLink": "https://homer0.github.io/woopack/class/src/app/index.js~Woopack.html",
+    "memberof": "src/typedef.js",
+    "static": true,
+    "longname": "src/typedef.js~Woopack",
+    "access": "public",
+    "description": ""
+  },
+  {
+    "__docId__": 64,
+    "kind": "external",
+    "name": "Target",
+    "externalLink": "https://homer0.github.io/woopack/typedef/index.html#static-typedef-Target",
+    "memberof": "src/typedef.js",
+    "static": true,
+    "longname": "src/typedef.js~Target",
+    "access": "public",
+    "description": ""
+  },
+  {
+    "kind": "index",
+    "content": "# woopack plugin for AngularJS on webpack\n\nAllows you to bundle an [AngularJS](https://angularjs.org) project with [woopack](https://yarnpkg.com/en/package/woopack) using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/woopack-plugin-webpack).\n\n## Introduction\n\n[woopack](https://yarnpkg.com/en/package/woopack) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/woopack-plugin-webpack).\n\nIt adds the [`ng-annotate-loader`](https://yarnpkg.com/en/package/ng-annotate-loader) package to your target configuration and takes care of updating the [`babel-loader`](https://yarnpkg.com/en/package/babel-loader) so the make the target transpilation compatible with the annotations loader.\n\nNow you can use the `ngInject` directive on your code to inject your dependencies\n\n```js\nclass MyService {\n  constructor($http, $q) {\n    'ngInject';\n\n    this.$http = $http;\n    this.$q = $q;\n    ...\n  }\n  ...\n}\n```\n\n## Information\n\n| -            | -                                                                                      |\n|--------------|----------------------------------------------------------------------------------------|\n| Package      | woopack-plugin-webpack-angularjs                                                       |\n| Description  | Allows you to bundle an AngularJS project with woopack using the webpack build engine. |\n| Node Version | >= v6.10.0                                                                             |\n\n## Usage\n\n1. You first need the build engine, so install [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack).\n2. If you changed, set your target `engine` setting to `webpack`.\n3. Add a new setting to your target named `framework` and set its value to `angularjs`.\n4. Done\n\nNow, when your target gets builded, the plugin will check if the target is using webpack and if the framework is AngularJS, then it will add the required loader and configure the transpilation options.\n\n### Babel\n\nThe [`ng-annotate-loader`](https://yarnpkg.com/en/package/ng-annotate-loader) package only works on `function` statements, that's why it needs to update the configuration of the [`babel-loader`](https://yarnpkg.com/en/package/babel-loader) in order to work.\n\nLet's say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn't be transpiled.\n\nIf for some reason you are overwriting the [Babel](https://babeljs.io) configuration woopack generates, you need to make sure the following transformations are included:\n\n- `transform-es2015-arrow-functions`\n- `transform-es2015-classes`\n- `transform-es2015-parameters`\n\n## Development\n\nBefore doing anything, install the repository hooks:\n\n```bash\n# You can either use npm or yarn, it doesn't matter\nnpm run install-hooks\n```\n\n### NPM/Yarn Tasks\n\n| Task                    | Description                         |\n|-------------------------|-------------------------------------|\n| `npm run install-hooks` | Install the GIT repository hooks.   |\n| `npm test`              | Run the project unit tests.         |\n| `npm run lint`          | Lint the modified files.            |\n| `npm run lint:full`     | Lint the project code.              |\n| `npm run docs`          | Generate the project documentation. |\n\n### Testing\n\nI use [Jest](https://facebook.github.io/jest/) with [Jest-Ex](https://yarnpkg.com/en/package/jest-ex) to test the project. The configuration file is on `./.jestrc`, the tests and mocks are on `./tests` and the script that runs it is on `./utils/scripts/test`.\n\n### Linting\n\nI use [ESlint](http://eslint.org) to validate all our JS code. The configuration file for the project code is on `./.eslintrc` and for the tests on `./tests/.eslintrc` (which inherits from the one on the root), there's also an `./.eslintignore` to ignore some files on the process, and the script that runs it is on `./utils/scripts/lint`.\n\n### Documentation\n\nI use [ESDoc](http://esdoc.org) to generate HTML documentation for the project. The configuration file is on `./.esdocrc` and the script that runs it is on `./utils/scripts/docs`.",
+    "longname": "/Users/homer0/CODE/Node/woopack/woopack-plugin-webpack-angularjs/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n    \"name\": \"woopack-plugin-webpack-angularjs\",\n    \"description\": \"Allows you to bundle an AngularJS project with woopack using the webpack build engine.\",\n    \"homepage\": \"https://homer0.github.io/woopack-plugin-webpack-angularjs/\",\n    \"version\": \"1.0.0\",\n    \"repository\": \"homer0/woopack-plugin-webpack-angularjs\",\n    \"author\": \"Leonardo Apiwan (@homer0) <me@homer0.com>\",\n    \"license\": \"MIT\",\n    \"dependencies\": {\n      \"ng-annotate-loader\": \"0.6.1\"\n    },\n    \"peerDependencies\": {\n\n    },\n    \"devDependencies\": {\n      \"wootils\": \"^1.0.5\",\n      \"eslint\": \"4.16.0\",\n      \"eslint-config-airbnb-base\": \"12.1.0\",\n      \"eslint-plugin-import\": \"2.8.0\",\n      \"eslint-plugin-node\": \"5.2.1\",\n      \"babel-preset-env\": \"1.6.1\",\n      \"jest-ex\": \"4.0.0\",\n      \"jest-cli\": \"22.1.4\",\n      \"jasmine-expect\": \"3.8.3\",\n      \"esdoc\": \"1.0.4\",\n      \"esdoc-standard-plugin\": \"1.0.0\",\n      \"esdoc-node\": \"1.0.3\",\n      \"leasot\": \"4.13.0\",\n      \"coveralls\": \"3.0.0\"\n    },\n    \"engine-strict\": true,\n    \"engines\": {\n      \"node\": \">=6.0.0\",\n      \"npm\": \">=3.0.0\"\n    },\n    \"main\": \"src/index.js\",\n    \"scripts\": {\n      \"install-hooks\": \"./utils/hooks/install\",\n      \"test\": \"./utils/scripts/test\",\n      \"lint\": \"./utils/scripts/lint\",\n      \"lint:full\": \"./utils/scripts/lint-full\",\n      \"docs\": \"./utils/scripts/docs\"\n    }\n}\n",
+    "longname": "/Users/homer0/CODE/Node/woopack/woopack-plugin-webpack-angularjs/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]
