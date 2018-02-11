@@ -1,10 +1,10 @@
-# woopack plugin for AngularJS on webpack
+# projext plugin for AngularJS on webpack
 
-Allows you to bundle an [AngularJS](https://angularjs.org) project with [woopack](https://yarnpkg.com/en/package/woopack) using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/woopack-plugin-webpack).
+Allows you to bundle an [AngularJS](https://angularjs.org) project with [projext](https://yarnpkg.com/en/package/projext) using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).
 
 ## Introduction
 
-[woopack](https://yarnpkg.com/en/package/woopack) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/woopack-plugin-webpack).
+[projext](https://yarnpkg.com/en/package/projext) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).
 
 It adds the [`ng-annotate-loader`](https://yarnpkg.com/en/package/ng-annotate-loader) package to your target configuration and takes care of updating the [`babel-loader`](https://yarnpkg.com/en/package/babel-loader) so the make the target transpilation compatible with the annotations loader.
 
@@ -27,13 +27,13 @@ class MyService {
 
 | -            | -                                                                                      |
 |--------------|----------------------------------------------------------------------------------------|
-| Package      | woopack-plugin-webpack-angularjs                                                       |
-| Description  | Allows you to bundle an AngularJS project with woopack using the webpack build engine. |
+| Package      | projext-plugin-webpack-angularjs                                                       |
+| Description  | Allows you to bundle an AngularJS project with projext using the webpack build engine. |
 | Node Version | >= v6.10.0                                                                             |
 
 ## Usage
 
-1. You first need the build engine, so install [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack).
+1. You first need the build engine, so install [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack).
 2. If you changed it, set your target `engine` setting to `webpack`.
 3. Add a new setting to your target named `framework` and set its value to `angularjs`.
 4. Done
@@ -46,7 +46,7 @@ The [`ng-annotate-loader`](https://yarnpkg.com/en/package/ng-annotate-loader) pa
 
 Let's say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn't be transpiled.
 
-If for some reason you are overwriting the [Babel](https://babeljs.io) configuration woopack generates, you need to make sure the following transformations are included:
+If for some reason you are overwriting the [Babel](https://babeljs.io) configuration projext generates, you need to make sure the following transformations are included:
 
 - `transform-es2015-arrow-functions`
 - `transform-es2015-classes`

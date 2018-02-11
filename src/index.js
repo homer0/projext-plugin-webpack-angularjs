@@ -1,12 +1,12 @@
-const WoopackAngularJSPlugin = require('./plugin');
+const ProjextAngularJSPlugin = require('./plugin');
 /**
- * This is the method called by Woopack when loading the plugin. It takes care of creating
+ * This is the method called by projext when loading the plugin. It takes care of creating
  * a new instance of the plugin class and use it to register for the required events.
- * @param {Woopack} app The Woopack main container.
+ * @param {Projext} app The projext main container.
  * @ignore
  */
 const loadPlugin = (app) => {
-  const plugin = new WoopackAngularJSPlugin();
+  const plugin = new ProjextAngularJSPlugin();
   plugin.register(app);
 };
 
