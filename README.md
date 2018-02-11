@@ -34,7 +34,7 @@ class MyService {
 ## Usage
 
 1. You first need the build engine, so install [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack).
-2. If you changed, set your target `engine` setting to `webpack`.
+2. If you changed it, set your target `engine` setting to `webpack`.
 3. Add a new setting to your target named `framework` and set its value to `angularjs`.
 4. Done
 
