@@ -1,8 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "woopack-plugin-webpack-angularjs/src/plugin.js~woopackangularjsplugin",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html",
-    "<span>WoopackAngularJSPlugin</span> <span class=\"search-result-import-path\">woopack-plugin-webpack-angularjs/src/plugin.js</span>",
+    "projext-plugin-webpack-angularjs/src/plugin.js~projextangularjsplugin",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html",
+    "<span>ProjextAngularJSPlugin</span> <span class=\"search-result-import-path\">projext-plugin-webpack-angularjs/src/plugin.js</span>",
     "class"
   ],
   [
@@ -300,45 +300,45 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#babelloadername",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-member-babelLoaderName",
-    "src/plugin.js~WoopackAngularJSPlugin#babelLoaderName",
+    "src/plugin.js~projextangularjsplugin#babelloadername",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-babelLoaderName",
+    "src/plugin.js~ProjextAngularJSPlugin#babelLoaderName",
     "member"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#babelrequiredincludedfeatures",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-member-babelRequiredIncludedFeatures",
-    "src/plugin.js~WoopackAngularJSPlugin#babelRequiredIncludedFeatures",
+    "src/plugin.js~projextangularjsplugin#babelrequiredincludedfeatures",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-babelRequiredIncludedFeatures",
+    "src/plugin.js~ProjextAngularJSPlugin#babelRequiredIncludedFeatures",
     "member"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#eventname",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-member-eventName",
-    "src/plugin.js~WoopackAngularJSPlugin#eventName",
+    "src/plugin.js~projextangularjsplugin#eventname",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-eventName",
+    "src/plugin.js~ProjextAngularJSPlugin#eventName",
     "member"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#frameworkproperty",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-member-frameworkProperty",
-    "src/plugin.js~WoopackAngularJSPlugin#frameworkProperty",
+    "src/plugin.js~projextangularjsplugin#frameworkproperty",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-frameworkProperty",
+    "src/plugin.js~ProjextAngularJSPlugin#frameworkProperty",
     "member"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#loadername",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-member-loaderName",
-    "src/plugin.js~WoopackAngularJSPlugin#loaderName",
+    "src/plugin.js~projextangularjsplugin#loadername",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-loaderName",
+    "src/plugin.js~ProjextAngularJSPlugin#loaderName",
     "member"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#register",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-method-register",
-    "src/plugin.js~WoopackAngularJSPlugin#register",
+    "src/plugin.js~projextangularjsplugin#register",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-register",
+    "src/plugin.js~ProjextAngularJSPlugin#register",
     "method"
   ],
   [
-    "src/plugin.js~woopackangularjsplugin#updaterules",
-    "class/src/plugin.js~WoopackAngularJSPlugin.html#instance-method-updateRules",
-    "src/plugin.js~WoopackAngularJSPlugin#updateRules",
+    "src/plugin.js~projextangularjsplugin#updaterules",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-updateRules",
+    "src/plugin.js~ProjextAngularJSPlugin#updateRules",
     "method"
   ],
   [
@@ -348,15 +348,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/typedef.js~target",
-    "https://homer0.github.io/woopack/typedef/index.html#static-typedef-Target",
-    "src/typedef.js~Target",
+    "src/typedef.js~projext",
+    "https://homer0.github.io/projext/class/src/app/index.js~Projext.html",
+    "src/typedef.js~Projext",
     "external"
   ],
   [
-    "src/typedef.js~woopack",
-    "https://homer0.github.io/woopack/class/src/app/index.js~Woopack.html",
-    "src/typedef.js~Woopack",
+    "src/typedef.js~target",
+    "https://homer0.github.io/projext/typedef/index.html#static-typedef-Target",
+    "src/typedef.js~Target",
     "external"
   ]
 ]
