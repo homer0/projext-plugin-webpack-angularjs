@@ -2,20 +2,20 @@
  * This service is in charge of adding the required loader to handle AngularJS inject annotations
  * and updating a target Babel configuration so the loader will work.
  */
-class WoopackAngularJSPlugin {
+class ProjextAngularJSPlugin {
   /**
    * Class constructor.
    * @ignore
    */
   constructor() {
     /**
-     * The name of the reducer event the service uses to reduce the rules configuration after
-     * creating it.
+     * The name of the reducer event this service uses to intercept a rules configuration in order
+     * to update it.
      * @type {string}
      */
     this.eventName = 'webpack-js-rules-configuration-for-browser';
     /**
-     * The required value a target `framework` setting needs to have in order for the plugin to
+     * The required value a target `framework` setting needs to have in order for the service to
      * take action.
      * @type {string}
      */
@@ -43,9 +43,9 @@ class WoopackAngularJSPlugin {
     ];
   }
   /**
-   * This is the method called when the plugin is loaded by Woopack. It just gets the events service
+   * This is the method called when the plugin is loaded by projext. It just gets the events service
    * and registers a listener for the reducer event that handles JS rules for browser targets.
-   * @param {Woopack} app The Woopack main container.
+   * @param {Projext} app The projext main container.
    */
   register(app) {
     const events = app.get('events');
@@ -55,12 +55,12 @@ class WoopackAngularJSPlugin {
     );
   }
   /**
-   * This method gets called when Woopack reduces the JS rules for browser targets. It
+   * This method gets called when Projext reduces the JS rules for browser targets. It
    * validates the target, adds the plugin loader and modifies, if necessary, the configuration for
    * Babel.
-   * @param {Array}  currentRules The list of JS loaders for the Webpack configuration.
+   * @param {Array}  currentRules The list of JS rules for the Webpack configuration.
    * @param {Target} target         The target information.
-   * @return {Array} The updated list of loaders.
+   * @return {Array} The updated list of rules.
    */
   updateRules(currentRules, target) {
     let updatedRules;
@@ -81,7 +81,7 @@ class WoopackAngularJSPlugin {
       baseJSRule.use.unshift(this.loaderName);
       // Get the index of the Babel loader.
       const babelLoaderIndex = this._findBabelLoaderIndex(baseJSRule.use);
-      // If the Babel loader is present...
+      // If the Babel loader is preset...
       if (babelLoaderIndex > -1) {
         // ...replace it with an updated version.
         baseJSRule.use[babelLoaderIndex] = this._updateBabelLoader(
@@ -89,14 +89,14 @@ class WoopackAngularJSPlugin {
         );
       }
     } else {
-      // ...otherwise, just set to return the received loaders.
+      // ...otherwise, just set to return the received rules.
       updatedRules = currentRules;
     }
 
     return updatedRules;
   }
   /**
-   * Finds the index of the Babel loader in a list of loaders.
+   * Finds the index of the Babel loader on a list of loaders.
    * @param {Array} loaders The list of loaders.
    * @return {number}
    * @ignore
@@ -136,8 +136,8 @@ class WoopackAngularJSPlugin {
       if (options.presets && options.presets.length) {
         // ...find the index of the `env` preset.
         envPresetIndex = options.presets.findIndex((preset) => {
-          const [presentName] = preset;
-          return presentName === 'env';
+          const [presetName] = preset;
+          return presetName === 'env';
         });
         // Validate that the `env` preset is on the options.
         hasEnvPreset = envPresetIndex > -1;
@@ -197,4 +197,4 @@ class WoopackAngularJSPlugin {
   }
 }
 
-module.exports = WoopackAngularJSPlugin;
+module.exports = ProjextAngularJSPlugin;
