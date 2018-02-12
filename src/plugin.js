@@ -2,7 +2,7 @@
  * This service is in charge of adding the required loader to handle AngularJS inject annotations
  * and updating a target Babel configuration so the loader will work.
  */
-class WoopackAngularJSPlugin {
+class ProjextAngularJSPlugin {
   /**
    * Class constructor.
    * @ignore
@@ -43,9 +43,9 @@ class WoopackAngularJSPlugin {
     ];
   }
   /**
-   * This is the method called when the plugin is loaded by Woopack. It just gets the events service
+   * This is the method called when the plugin is loaded by projext. It just gets the events service
    * and registers a listener for the reducer event that handles JS rules for browser targets.
-   * @param {Woopack} app The Woopack main container.
+   * @param {Projext} app The projext main container.
    */
   register(app) {
     const events = app.get('events');
@@ -55,7 +55,7 @@ class WoopackAngularJSPlugin {
     );
   }
   /**
-   * This method gets called when Woopack reduces the JS rules for browser targets. It
+   * This method gets called when Projext reduces the JS rules for browser targets. It
    * validates the target, adds the plugin loader and modifies, if necessary, the configuration for
    * Babel.
    * @param {Array}  currentRules The list of JS rules for the Webpack configuration.
@@ -197,4 +197,4 @@ class WoopackAngularJSPlugin {
   }
 }
 
-module.exports = WoopackAngularJSPlugin;
+module.exports = ProjextAngularJSPlugin;

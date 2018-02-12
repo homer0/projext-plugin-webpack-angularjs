@@ -2,16 +2,16 @@ jest.unmock('/src/plugin');
 
 require('jasmine-expect');
 
-const WoopackAngularJSPlugin = require('/src/plugin');
+const ProjextAngularJSPlugin = require('/src/plugin');
 
-describe('plugin:woopackAngularJS/main', () => {
+describe('plugin:projextAngularJS/main', () => {
   it('should be instantiated', () => {
     // Given
     let sut = null;
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     // Then
-    expect(sut).toBeInstanceOf(WoopackAngularJSPlugin);
+    expect(sut).toBeInstanceOf(ProjextAngularJSPlugin);
     expect(sut.eventName).toBe('webpack-js-rules-configuration-for-browser');
     expect(sut.frameworkProperty).toBe('angularjs');
     expect(sut.loaderName).toBe('ng-annotate-loader');
@@ -33,7 +33,7 @@ describe('plugin:woopackAngularJS/main', () => {
     };
     let sut = null;
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     // Then
     expect(app.get).toHaveBeenCalledTimes(1);
@@ -73,7 +73,7 @@ describe('plugin:woopackAngularJS/main', () => {
       ],
     })];
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
@@ -109,7 +109,7 @@ describe('plugin:woopackAngularJS/main', () => {
     let reducer = null;
     let result = null;
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
@@ -168,7 +168,7 @@ describe('plugin:woopackAngularJS/main', () => {
       ],
     })];
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
@@ -220,7 +220,7 @@ describe('plugin:woopackAngularJS/main', () => {
       ],
     })];
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
@@ -294,7 +294,7 @@ describe('plugin:woopackAngularJS/main', () => {
       ],
     })];
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
@@ -337,7 +337,7 @@ describe('plugin:woopackAngularJS/main', () => {
       ],
     })];
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
@@ -382,7 +382,7 @@ describe('plugin:woopackAngularJS/main', () => {
       ],
     })];
     // When
-    sut = new WoopackAngularJSPlugin();
+    sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
     result = reducer(currentRules, { target });
