@@ -12,8 +12,18 @@ describe('plugin:projextAngularJS/main', () => {
     sut = new ProjextAngularJSPlugin();
     // Then
     expect(sut).toBeInstanceOf(ProjextAngularJSPlugin);
-    expect(sut.eventName).toBe('webpack-js-rules-configuration-for-browser');
+    expect(sut.rulesEventName).toBe('webpack-js-rules-configuration-for-browser');
+    expect(sut.htmlSettingsEventName).toBe('target-default-html-settings');
     expect(sut.frameworkProperty).toBe('angularjs');
+    expect(sut.frameworkOptions).toBeObject();
+    expect(Object.keys(sut.frameworkOptions)).toEqual([
+      'title',
+      'appName',
+      'strict',
+      'cloak',
+      'useBody',
+      'mainComponent',
+    ]);
     expect(sut.loaderName).toBe('ng-annotate-loader');
     expect(sut.babelLoaderName).toBe('babel-loader');
     expect(sut.babelRequiredIncludedFeatures).toEqual([
@@ -23,7 +33,7 @@ describe('plugin:projextAngularJS/main', () => {
     ]);
   });
 
-  it('should register a listener for the Webpack plugin', () => {
+  it('should register the listeners for the Webpack plugin and the HTML settings', () => {
     // Given
     const events = {
       on: jest.fn(),
@@ -32,14 +42,20 @@ describe('plugin:projextAngularJS/main', () => {
       get: jest.fn(() => events),
     };
     let sut = null;
+    const expectedEvents = [
+      'webpack-js-rules-configuration-for-browser',
+      'target-default-html-settings',
+    ];
     // When
     sut = new ProjextAngularJSPlugin();
     sut.register(app);
     // Then
     expect(app.get).toHaveBeenCalledTimes(1);
     expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
+    expect(events.on).toHaveBeenCalledTimes(expectedEvents.length);
+    expectedEvents.forEach((eventName) => {
+      expect(events.on).toHaveBeenCalledWith(eventName, expect.any(Function));
+    });
   });
 
   it('should update the JS rules of a browser target', () => {
@@ -79,10 +95,6 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
   it('shouldn\'t modify the rules if the target is not for browser', () => {
@@ -115,10 +127,6 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(currentRules);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
   it('should update the JS rules of a browser target and add the Babel required features', () => {
@@ -174,10 +182,6 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
   it('shouldn\'t update the Babel config if it already has some presets', () => {
@@ -226,10 +230,6 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
   it('should update an existing configuration of the Babel env preset', () => {
@@ -300,10 +300,6 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
   it('shouldn\'t update the Babel config if the loader is set as a string', () => {
@@ -343,10 +339,6 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
   });
 
   it('shouldn\'t update the Babel config if the loader doesn\'t have an `options` key', () => {
@@ -388,9 +380,127 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentRules, { target });
     // Then
     expect(result).toEqual(expectedLoaders);
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
-    expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(sut.eventName, expect.any(Function));
+  });
+
+  it('should update the settings for a browser taget default HTML', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const app = {
+      get: jest.fn(() => events),
+    };
+    const targetName = 'my-target';
+    const normalizedTargetName = 'myTarget';
+    const target = {
+      name: targetName,
+      is: {
+        browser: true,
+      },
+      framework: 'angularjs',
+    };
+    const currentSettings = {
+      title: 'my-title',
+      bodyAttributes: '',
+      bodyContents: '<div id="app"></div>',
+    };
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    const expectedSettings = {
+      title: currentSettings.title,
+      bodyAttributes: `ng-app="${normalizedTargetName}" ng-strict-di ng-cloak`,
+      bodyContents: '',
+    };
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [, [, reducer]] = events.on.mock.calls;
+    result = reducer(currentSettings, target);
+    // Then
+    expect(result).toEqual(expectedSettings);
+  });
+
+  it('shouldn\'t modify the HTML settings if the target is not for browser', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const app = {
+      get: jest.fn(() => events),
+    };
+    const target = {
+      name: 'my-target',
+      is: {
+        browser: false,
+      },
+      framework: 'angularjs',
+    };
+    const currentSettings = {
+      title: 'my-title',
+      bodyAttributes: '',
+      bodyContents: '<div id="app"></div>',
+    };
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [, [, reducer]] = events.on.mock.calls;
+    result = reducer(currentSettings, target);
+    // Then
+    expect(result).toEqual(currentSettings);
+  });
+
+  it('should update the settings with custom options for a browser taget default HTML', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const app = {
+      get: jest.fn(() => events),
+    };
+    const targetName = 'my-target';
+    const mainComponent = 'root-container';
+    const frameworkOptions = {
+      title: 'My App',
+      appName: 'myCustomApp',
+      strict: false,
+      cloak: false,
+      useBody: false,
+      mainComponent,
+    };
+    const target = {
+      name: targetName,
+      is: {
+        browser: true,
+      },
+      framework: 'angularjs',
+      frameworkOptions,
+    };
+    const currentSettings = {
+      title: 'my-title',
+      bodyAttributes: '',
+      bodyContents: '<div id="app"></div>',
+    };
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    const expectedMainComponent = `<${mainComponent}></${mainComponent}>`;
+    const expectedSettings = {
+      title: frameworkOptions.title,
+      bodyAttributes: '',
+      bodyContents: `
+        <div id="app" ng-app="${frameworkOptions.appName}">${expectedMainComponent}</div>
+      `.trim(),
+    };
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [, [, reducer]] = events.on.mock.calls;
+    result = reducer(currentSettings, target);
+    // Then
+    expect(result).toEqual(expectedSettings);
   });
 });
