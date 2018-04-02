@@ -66,7 +66,7 @@ Now, there are a few options you can change in order to customize the way the HT
     strict: true,
     cloak: true,
     useBody: true,
-    mainComponent: null,
+    mainComponent: 'main',
   }
 }
 ```

@@ -51,7 +51,7 @@ class ProjextAngularJSPlugin {
       strict: true,
       cloak: true,
       useBody: true,
-      mainComponent: null,
+      mainComponent: 'main',
     };
     /**
      * The name of the loader the plugin adds to the Webpack configuration.
