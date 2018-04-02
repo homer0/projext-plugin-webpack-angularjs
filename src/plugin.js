@@ -51,7 +51,7 @@ class ProjextAngularJSPlugin {
       strict: true,
       cloak: true,
       useBody: true,
-      mainComponent: null,
+      mainComponent: 'main',
     };
     /**
      * The name of the loader the plugin adds to the Webpack configuration.
@@ -151,7 +151,7 @@ class ProjextAngularJSPlugin {
       updatedSettings = Object.assign({}, currentSettings);
       // Get a lowerCamelCase name for the AngularJS app by parsing the target name.
       const appName = target.name.replace(/-(\w)/ig, (match, letter) => letter.toUpperCase());
-      // Merge the default options with any overwrite the framework may have.
+      // Merge the default options with any overwrite the target may have.
       const options = Object.assign(
         {},
         this.frameworkOptions,

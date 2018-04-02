@@ -410,7 +410,7 @@ describe('plugin:projextAngularJS/main', () => {
     const expectedSettings = {
       title: currentSettings.title,
       bodyAttributes: `ng-app="${normalizedTargetName}" ng-strict-di ng-cloak`,
-      bodyContents: '',
+      bodyContents: '<main></main>',
     };
     // When
     sut = new ProjextAngularJSPlugin();
@@ -462,14 +462,13 @@ describe('plugin:projextAngularJS/main', () => {
       get: jest.fn(() => events),
     };
     const targetName = 'my-target';
-    const mainComponent = 'root-container';
     const frameworkOptions = {
       title: 'My App',
       appName: 'myCustomApp',
       strict: false,
       cloak: false,
       useBody: false,
-      mainComponent,
+      mainComponent: null,
     };
     const target = {
       name: targetName,
@@ -487,12 +486,11 @@ describe('plugin:projextAngularJS/main', () => {
     let sut = null;
     let reducer = null;
     let result = null;
-    const expectedMainComponent = `<${mainComponent}></${mainComponent}>`;
     const expectedSettings = {
       title: frameworkOptions.title,
       bodyAttributes: '',
       bodyContents: `
-        <div id="app" ng-app="${frameworkOptions.appName}">${expectedMainComponent}</div>
+        <div id="app" ng-app="${frameworkOptions.appName}"></div>
       `.trim(),
     };
     // When
