@@ -52,6 +52,32 @@ If for some reason you are overwriting the [Babel](https://babeljs.io) configura
 - `transform-es2015-classes`
 - `transform-es2015-parameters`
 
+### Default HTML
+
+If you didn't create an HTML file for your AngularJS app, projext will create one for you and this plugin will take care of updating the contents of that HTML so you can run your app right away.
+
+Now, there are a few options you can change in order to customize the way the HTML is generated: You can create a `frameworkOptions` property on your target configuration and set the following values:
+
+```js
+{
+  frameworkOptions: {
+    title: null,
+    appName: null,
+    strict: true,
+    cloak: true,
+    useBody: true,
+    mainComponent: 'main',
+  }
+}
+```
+
+- `title`: A custom title for the HTML file. By default, projext, uses the name of the target.
+- `appName`: A custom name of the [`ng-app` attribute](https://docs.angularjs.org/api/ng/directive/ngApp). By default, the plugin will convert te target name to `lowerCamelCase` and use that.
+- `strict`: Whether or not you want to use the [`ng-strict-di` directive](https://docs.angularjs.org/api/ng/directive/ngApp#with-ngstrictdi-).
+- `cloak`: Whether or not you want to use the [`ng-cloak` directive](https://docs.angularjs.org/api/ng/directive/ngCloak).
+- `useBody`: Whether to add the `ng-app` attribute and the directives on the `<body />` or on a `<div />` inside it.
+- `mainComponent`: The tag name of a component that should be inside the _"app tag"_.
+
 ## Development
 
 Before doing anything, install the repository hooks:
