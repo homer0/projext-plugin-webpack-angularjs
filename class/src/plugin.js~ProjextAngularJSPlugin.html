@@ -32,6 +32,7 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html">ProjextAngularJSPlugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -156,14 +157,14 @@ and updating a target Babel configuration so the loader will work.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-eventName">eventName</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-frameworkOptions">frameworkOptions</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>The name of the reducer event this service uses to intercept a rules configuration in order
-to update it.</p>
+        <div data-ice="description"><p>The default values for the options a target can use to customize the default HTML projext
+generates.</p>
 </div>
       </div>
     </td>
@@ -216,6 +217,36 @@ take action.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-htmlSettingsEventName">htmlSettingsEventName</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The name of the reducer event this service uses to intercept a browser target default HTML
+file settings and update them.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-loaderName">loaderName</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
@@ -223,6 +254,36 @@ take action.</p>
         
         
         <div data-ice="description"><p>The name of the loader the plugin adds to the Webpack configuration.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-rulesEventName">rulesEventName</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The name of the reducer event this service uses to intercept a rules configuration in order
+to update it.</p>
 </div>
       </div>
     </td>
@@ -259,6 +320,36 @@ take action.</p>
         
         
         <div data-ice="description"><p>This is the method called when the plugin is loaded by projext.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-updateHTMLSettings">updateHTMLSettings</a></span></span><span class="code" data-ice="signature">(currentSettings: <span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span>, target: <span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span>): <span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Read the settings projext is using to build browser target default HTML file and update them
+based on the framework options defined by the target in order to run an AngularJS app.</p>
 </div>
       </div>
     </td>
@@ -319,7 +410,7 @@ take action.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -363,7 +454,7 @@ take action.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber39">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber72">source</a></span></span>
     </span>
   </h3>
 
@@ -398,31 +489,91 @@ into <code>function</code>s so the loader can inject the annotations.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-eventName">
+  <h3 data-ice="anchor" id="instance-member-frameworkOptions">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">eventName</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="code" data-ice="name">frameworkOptions</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber48">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>The name of the reducer event this service uses to intercept a rules configuration in order
-to update it.</p>
+  <div data-ice="description"><p>The default values for the options a target can use to customize the default HTML projext
+generates.</p>
 </div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">title</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>A custom value for the <code>&lt;title /&gt;</code> tag. If the target
+                                  doesn&apos;t define it, the plugin will use the one projext
+                                  sets by default (The name of the target).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">appName</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>The value of the <code>ng-app</code> attribute. If the target
+                                  doesn&apos;t define it, the plugin will convert the name of
+                                  the target to <code>lowerCamelCase</code> and use that instead.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">strict</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Whether the app tag should include the <code>ng-strict-di</code>
+                                  directive or not.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">cloak</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Whether the app tag should include the <code>ng-cloak</code>
+                                  directive or not.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">useBody</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Whether or not the <code>body</code> should be used as the app tag
+                                  (<code>ng-app</code>).</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">mainComponent</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>The name of a component that should be added inside the
+                                  app tag.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -454,7 +605,7 @@ to update it.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber22">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -463,6 +614,51 @@ to update it.</p>
   
   <div data-ice="description"><p>The required value a target <code>framework</code> setting needs to have in order for the service to
 take action.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-htmlSettingsEventName">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">htmlSettingsEventName</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber22">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>The name of the reducer event this service uses to intercept a browser target default HTML
+file settings and update them.</p>
 </div>
 
   
@@ -499,7 +695,7 @@ take action.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber27">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -507,6 +703,51 @@ take action.</p>
   
   
   <div data-ice="description"><p>The name of the loader the plugin adds to the Webpack configuration.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-rulesEventName">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">rulesEventName</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber16">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>The name of the reducer event this service uses to intercept a rules configuration in order
+to update it.</p>
 </div>
 
   
@@ -546,7 +787,7 @@ take action.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -554,7 +795,8 @@ take action.</p>
   
   
   <div data-ice="description"><p>This is the method called when the plugin is loaded by projext. It just gets the events service
-and registers a listener for the reducer event that handles JS rules for browser targets.</p>
+and registers the listeners for the reducer events that handle the JS rules for browser
+targets and generate a target the default HTML file.</p>
 </div>
 
   
@@ -597,6 +839,88 @@ and registers a listener for the reducer event that handles JS rules for browser
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-updateHTMLSettings">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">updateHTMLSettings</span><span class="code" data-ice="signature">(currentSettings: <span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span>, target: <span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span>): <span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber146">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Read the settings projext is using to build browser target default HTML file and update them
+based on the framework options defined by the target in order to run an AngularJS app.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">currentSettings</td>
+      <td data-ice="type" class="code"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The settings projext uses to build a target
+                                                   default HTML file.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">target</td>
+      <td data-ice="type" class="code"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The target information.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-updateRules">
     <span class="access" data-ice="access">public</span>
     
@@ -608,7 +932,7 @@ and registers a listener for the reducer event that handles JS rules for browser
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber105">source</a></span></span>
     </span>
   </h3>
 

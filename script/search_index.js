@@ -312,15 +312,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugin.js~projextangularjsplugin#eventname",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-eventName",
-    "src/plugin.js~ProjextAngularJSPlugin#eventName",
+    "src/plugin.js~projextangularjsplugin#frameworkoptions",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-frameworkOptions",
+    "src/plugin.js~ProjextAngularJSPlugin#frameworkOptions",
     "member"
   ],
   [
     "src/plugin.js~projextangularjsplugin#frameworkproperty",
     "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-frameworkProperty",
     "src/plugin.js~ProjextAngularJSPlugin#frameworkProperty",
+    "member"
+  ],
+  [
+    "src/plugin.js~projextangularjsplugin#htmlsettingseventname",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-htmlSettingsEventName",
+    "src/plugin.js~ProjextAngularJSPlugin#htmlSettingsEventName",
     "member"
   ],
   [
@@ -333,6 +339,18 @@ window.esdocSearchIndex = [
     "src/plugin.js~projextangularjsplugin#register",
     "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-register",
     "src/plugin.js~ProjextAngularJSPlugin#register",
+    "method"
+  ],
+  [
+    "src/plugin.js~projextangularjsplugin#ruleseventname",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-rulesEventName",
+    "src/plugin.js~ProjextAngularJSPlugin#rulesEventName",
+    "member"
+  ],
+  [
+    "src/plugin.js~projextangularjsplugin#updatehtmlsettings",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-updateHTMLSettings",
+    "src/plugin.js~ProjextAngularJSPlugin#updateHTMLSettings",
     "method"
   ],
   [
@@ -357,6 +375,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~target",
     "https://homer0.github.io/projext/typedef/index.html#static-typedef-Target",
     "src/typedef.js~Target",
+    "external"
+  ],
+  [
+    "src/typedef.js~targetdefaulthtmlsettings",
+    "https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings",
+    "src/typedef.js~TargetDefaultHTMLSettings",
     "external"
   ]
 ]

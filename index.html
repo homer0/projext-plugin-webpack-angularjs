@@ -32,6 +32,7 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~ProjextAngularJSPlugin.html">ProjextAngularJSPlugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/class/src/app/index.js~Projext.html">Projext</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -87,6 +88,27 @@
 <li><code>transform-es2015-arrow-functions</code></li>
 <li><code>transform-es2015-classes</code></li>
 <li><code>transform-es2015-parameters</code></li>
+</ul>
+<h3 id="default-html">Default HTML</h3><p>If you didn&apos;t create an HTML file for your AngularJS app, projext will create one for you and this plugin will take care of updating the contents of that HTML so you can run your app right away.</p>
+<p>Now, there are a few options you can change in order to customize the way the HTML is generated: You can create a <code>frameworkOptions</code> property on your target configuration and set the following values:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  frameworkOptions: {
+    title: null,
+    appName: null,
+    strict: true,
+    cloak: true,
+    useBody: true,
+    mainComponent: &apos;main&apos;,
+  }
+}</code>
+</code></pre>
+<ul>
+<li><code>title</code>: A custom title for the HTML file. By default, projext, uses the name of the target.</li>
+<li><code>appName</code>: A custom name of the <a href="https://docs.angularjs.org/api/ng/directive/ngApp"><code>ng-app</code> attribute</a>. By default, the plugin will convert te target name to <code>lowerCamelCase</code> and use that.</li>
+<li><code>strict</code>: Whether or not you want to use the <a href="https://docs.angularjs.org/api/ng/directive/ngApp#with-ngstrictdi-"><code>ng-strict-di</code> directive</a>.</li>
+<li><code>cloak</code>: Whether or not you want to use the <a href="https://docs.angularjs.org/api/ng/directive/ngCloak"><code>ng-cloak</code> directive</a>.</li>
+<li><code>useBody</code>: Whether to add the <code>ng-app</code> attribute and the directives on the <code>&lt;body /&gt;</code> or on a <code>&lt;div /&gt;</code> inside it.</li>
+<li><code>mainComponent</code>: The tag name of a component that should be inside the <em>&quot;app tag&quot;</em>.</li>
 </ul>
 <h2 id="development">Development</h2><p>Before doing anything, install the repository hooks:</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint"># You can either use npm or yarn, it doesn&apos;t matter
