@@ -12,111 +12,61 @@ describe('plugin:projextAngularJS/main', () => {
     sut = new ProjextAngularJSPlugin();
     // Then
     expect(sut).toBeInstanceOf(ProjextAngularJSPlugin);
-    expect(sut.rulesEventName).toBe('webpack-js-rules-configuration-for-browser');
-    expect(sut.htmlSettingsEventName).toBe('target-default-html-settings');
-    expect(sut.frameworkProperty).toBe('angularjs');
-    expect(sut.frameworkOptions).toBeObject();
-    expect(Object.keys(sut.frameworkOptions)).toEqual([
-      'title',
-      'appName',
-      'strict',
-      'cloak',
-      'useBody',
-      'mainComponent',
-    ]);
-    expect(sut.loaderName).toBe('ng-annotate-loader');
-    expect(sut.babelLoaderName).toBe('babel-loader');
-    expect(sut.babelRequiredIncludedFeatures).toEqual([
-      'transform-es2015-arrow-functions',
-      'transform-es2015-classes',
-      'transform-es2015-parameters',
-    ]);
   });
 
-  it('should register the listeners for the Webpack plugin and the HTML settings', () => {
+  it('should register the listeners for the webpack plugin', () => {
     // Given
     const events = {
       on: jest.fn(),
     };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
     const app = {
-      get: jest.fn(() => events),
+      get: jest.fn((service) => services[service]),
     };
     let sut = null;
     const expectedEvents = [
-      'webpack-js-rules-configuration-for-browser',
+      'babel-configuration',
+      'webpack-externals-configuration',
       'target-default-html-settings',
     ];
+    const expectedServices = Object.keys(services);
     // When
     sut = new ProjextAngularJSPlugin();
     sut.register(app);
     // Then
-    expect(app.get).toHaveBeenCalledTimes(1);
-    expect(app.get).toHaveBeenCalledWith('events');
+    expect(app.get).toHaveBeenCalledTimes(expectedServices.length);
+    expectedServices.forEach((service) => {
+      expect(app.get).toHaveBeenCalledWith(service);
+    });
     expect(events.on).toHaveBeenCalledTimes(expectedEvents.length);
     expectedEvents.forEach((eventName) => {
       expect(events.on).toHaveBeenCalledWith(eventName, expect.any(Function));
     });
   });
 
-  it('should update the JS rules of a browser target', () => {
+  it('shouldn\'t update a target Babel configuration if the framework setting is invalid', () => {
     // Given
     const events = {
       on: jest.fn(),
     };
-    const app = {
-      get: jest.fn(() => events),
-    };
-    const target = {
-      is: {
-        browser: true,
-      },
-      framework: 'angularjs',
-    };
-    const currentJSLoader = {
-      test: /\.jsx?$/i,
-      use: [
-        'some-random-loader',
-      ],
-    };
-    const currentRules = [currentJSLoader];
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    const expectedLoaders = [Object.assign({}, currentJSLoader, {
-      use: [
-        'ng-annotate-loader',
-        ...currentJSLoader.use,
-      ],
-    })];
-    // When
-    sut = new ProjextAngularJSPlugin();
-    sut.register(app);
-    [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
-    // Then
-    expect(result).toEqual(expectedLoaders);
-  });
-
-  it('shouldn\'t modify the rules if the target is not for browser', () => {
-    // Given
-    const events = {
-      on: jest.fn(),
+    const targets = 'targets';
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      targets,
+      babelHelper,
     };
     const app = {
-      get: jest.fn(() => events),
+      get: jest.fn((service) => services[service]),
     };
     const target = {
-      is: {
-        browser: false,
-      },
-      framework: 'angularjs',
+      framework: 'react',
     };
-    const currentRules = [{
-      test: /\.jsx?$/i,
-      use: [
-        'some-random-loader',
-      ],
-    }];
+    const initialBabelConfiguration = 'current-babel-configuration';
     let sut = null;
     let reducer = null;
     let result = null;
@@ -124,262 +74,72 @@ describe('plugin:projextAngularJS/main', () => {
     sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
+    result = reducer(initialBabelConfiguration, { target });
     // Then
-    expect(result).toEqual(currentRules);
+    expect(result).toBe(initialBabelConfiguration);
   });
 
-  it('should update the JS rules of a browser target and add the Babel required features', () => {
+  it('should add the annotations preset to the Babel configuration', () => {
     // Given
     const events = {
       on: jest.fn(),
     };
-    const app = {
-      get: jest.fn(() => events),
+    const targets = 'targets';
+    const babelHelper = {
+      addEnvPresetFeature: jest.fn((config, features) => Object.assign({}, config, { features })),
+      addPlugin: jest.fn((config, name) => Object.assign({}, config, { plugin: name })),
     };
-    const target = {
-      is: {
-        browser: true,
-      },
-      framework: 'angularjs',
-    };
-    const currentJSLoader = {
-      test: /\.jsx?$/i,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: {},
-        },
-      ],
-    };
-    const currentRules = [currentJSLoader];
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    const expectedLoaders = [Object.assign({}, currentJSLoader, {
-      use: [
-        'ng-annotate-loader',
-        {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', {
-                include: [
-                  'transform-es2015-arrow-functions',
-                  'transform-es2015-classes',
-                  'transform-es2015-parameters',
-                ],
-              }],
-            ],
-          },
-        },
-      ],
-    })];
-    // When
-    sut = new ProjextAngularJSPlugin();
-    sut.register(app);
-    [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
-    // Then
-    expect(result).toEqual(expectedLoaders);
-  });
-
-  it('shouldn\'t update the Babel config if it already has some presets', () => {
-    // Given
-    const events = {
-      on: jest.fn(),
+    const services = {
+      events,
+      targets,
+      babelHelper,
     };
     const app = {
-      get: jest.fn(() => events),
+      get: jest.fn((service) => services[service]),
     };
     const target = {
-      is: {
-        browser: true,
-      },
       framework: 'angularjs',
-    };
-    const existingPresets = [
-      ['preset-one'],
-      ['preset-two'],
-    ];
-    const currentJSLoader = {
-      test: /\.jsx?$/i,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: {
-            presets: [existingPresets],
-          },
-        },
-      ],
-    };
-    const currentRules = [currentJSLoader];
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    const expectedLoaders = [Object.assign({}, currentJSLoader, {
-      use: [
-        'ng-annotate-loader',
-        ...currentJSLoader.use,
-      ],
-    })];
-    // When
-    sut = new ProjextAngularJSPlugin();
-    sut.register(app);
-    [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
-    // Then
-    expect(result).toEqual(expectedLoaders);
-  });
-
-  it('should update an existing configuration of the Babel env preset', () => {
-    // Given
-    const events = {
-      on: jest.fn(),
-    };
-    const app = {
-      get: jest.fn(() => events),
-    };
-    const target = {
-      is: {
-        browser: true,
-      },
-      framework: 'angularjs',
-    };
-    const currentEnvPresetOptions = {
       target: {
-        node: 'current',
+        is: {
+          browser: true,
+        },
       },
-      include: [
+    };
+    const initialBabelConfiguration = {};
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    const expectedConfigWithEnvFeatures = Object.assign({}, initialBabelConfiguration, {
+      features: [
         'transform-es2015-arrow-functions',
+        'transform-es2015-classes',
+        'transform-es2015-parameters',
       ],
-    };
-    const currentJSLoader = {
-      test: /\.jsx?$/i,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', currentEnvPresetOptions],
-            ],
-          },
-        },
-      ],
-    };
-    const currentRules = [currentJSLoader];
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    const expectedLoaders = [Object.assign({}, currentJSLoader, {
-      use: [
-        'ng-annotate-loader',
-        {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', {
-                target: {
-                  node: 'current',
-                },
-                include: [
-                  'transform-es2015-arrow-functions',
-                  'transform-es2015-classes',
-                  'transform-es2015-parameters',
-                ],
-              }],
-            ],
-          },
-        },
-      ],
-    })];
+    });
+    const expectedConfigWithPlugin = Object.assign({}, expectedConfigWithEnvFeatures, {
+      plugin: ['angularjs-annotate', { explicitOnly: true }],
+    });
     // When
     sut = new ProjextAngularJSPlugin();
     sut.register(app);
     [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
+    result = reducer(initialBabelConfiguration, target);
     // Then
-    expect(result).toEqual(expectedLoaders);
-  });
-
-  it('shouldn\'t update the Babel config if the loader is set as a string', () => {
-    // Given
-    const events = {
-      on: jest.fn(),
-    };
-    const app = {
-      get: jest.fn(() => events),
-    };
-    const target = {
-      is: {
-        browser: true,
-      },
-      framework: 'angularjs',
-    };
-    const currentJSLoader = {
-      test: /\.jsx?$/i,
-      use: [
-        'babel-loader',
-      ],
-    };
-    const currentRules = [currentJSLoader];
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    const expectedLoaders = [Object.assign({}, currentJSLoader, {
-      use: [
-        'ng-annotate-loader',
-        ...currentJSLoader.use,
-      ],
-    })];
-    // When
-    sut = new ProjextAngularJSPlugin();
-    sut.register(app);
-    [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
-    // Then
-    expect(result).toEqual(expectedLoaders);
-  });
-
-  it('shouldn\'t update the Babel config if the loader doesn\'t have an `options` key', () => {
-    // Given
-    const events = {
-      on: jest.fn(),
-    };
-    const app = {
-      get: jest.fn(() => events),
-    };
-    const target = {
-      is: {
-        browser: true,
-      },
-      framework: 'angularjs',
-    };
-    const currentJSLoader = {
-      test: /\.jsx?$/i,
-      use: [
-        {
-          loader: 'babel-loader',
-        },
-      ],
-    };
-    const currentRules = [currentJSLoader];
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    const expectedLoaders = [Object.assign({}, currentJSLoader, {
-      use: [
-        'ng-annotate-loader',
-        ...currentJSLoader.use,
-      ],
-    })];
-    // When
-    sut = new ProjextAngularJSPlugin();
-    sut.register(app);
-    [[, reducer]] = events.on.mock.calls;
-    result = reducer(currentRules, { target });
-    // Then
-    expect(result).toEqual(expectedLoaders);
+    expect(result).toEqual(expectedConfigWithPlugin);
+    expect(babelHelper.addEnvPresetFeature).toHaveBeenCalledTimes(1);
+    expect(babelHelper.addEnvPresetFeature).toHaveBeenCalledWith(
+      initialBabelConfiguration,
+      [
+        'transform-es2015-arrow-functions',
+        'transform-es2015-classes',
+        'transform-es2015-parameters',
+      ]
+    );
+    expect(babelHelper.addPlugin).toHaveBeenCalledTimes(1);
+    expect(babelHelper.addPlugin).toHaveBeenCalledWith(
+      expectedConfigWithEnvFeatures,
+      ['angularjs-annotate', { explicitOnly: true }]
+    );
   });
 
   it('should update the settings for a browser taget default HTML', () => {
@@ -387,8 +147,13 @@ describe('plugin:projextAngularJS/main', () => {
     const events = {
       on: jest.fn(),
     };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
     const app = {
-      get: jest.fn(() => events),
+      get: jest.fn((service) => services[service]),
     };
     const targetName = 'my-target';
     const normalizedTargetName = 'myTarget';
@@ -426,8 +191,13 @@ describe('plugin:projextAngularJS/main', () => {
     const events = {
       on: jest.fn(),
     };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
     const app = {
-      get: jest.fn(() => events),
+      get: jest.fn((service) => services[service]),
     };
     const target = {
       name: 'my-target',
@@ -458,8 +228,13 @@ describe('plugin:projextAngularJS/main', () => {
     const events = {
       on: jest.fn(),
     };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
     const app = {
-      get: jest.fn(() => events),
+      get: jest.fn((service) => services[service]),
     };
     const targetName = 'my-target';
     const frameworkOptions = {
@@ -500,5 +275,139 @@ describe('plugin:projextAngularJS/main', () => {
     result = reducer(currentSettings, target);
     // Then
     expect(result).toEqual(expectedSettings);
+  });
+
+  it('shouldn\'t modify a target externals if the framework setting is invalid', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
+    const app = {
+      get: jest.fn((service) => services[service]),
+    };
+    const target = {
+      framework: 'react',
+    };
+    const initialExternals = {};
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [,, [, reducer]] = events.on.mock.calls;
+    result = reducer(initialExternals, { target });
+    // Then
+    expect(result).toEqual(initialExternals);
+  });
+
+  it('shouldn\'t modify a target externals if the target is a browser app', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
+    const app = {
+      get: jest.fn((service) => services[service]),
+    };
+    const target = {
+      framework: 'angularjs',
+      is: {
+        node: false,
+      },
+    };
+    const initialExternals = {};
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [,, [, reducer]] = events.on.mock.calls;
+    result = reducer(initialExternals, { target });
+    // Then
+    expect(result).toEqual(initialExternals);
+  });
+
+  it('should include the AngularJS packages on the externals for a Node target', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
+    const app = {
+      get: jest.fn((service) => services[service]),
+    };
+    const target = {
+      framework: 'angularjs',
+      is: {
+        node: true,
+      },
+    };
+    const initialExternals = {
+      'colors/safe': 'commonjs colors/safe',
+    };
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [,, [, reducer]] = events.on.mock.calls;
+    result = reducer(initialExternals, { target });
+    // Then
+    expect(result).toEqual(Object.assign({}, initialExternals, {
+      angular: 'commonjs angular',
+    }));
+  });
+
+  it('should include the AngularJS packages on the externals for a browser library target', () => {
+    // Given
+    const events = {
+      on: jest.fn(),
+    };
+    const babelHelper = 'babelHelper';
+    const services = {
+      events,
+      babelHelper,
+    };
+    const app = {
+      get: jest.fn((service) => services[service]),
+    };
+    const target = {
+      framework: 'angularjs',
+      is: {
+        node: false,
+      },
+      library: true,
+    };
+    const initialExternals = {
+      'colors/safe': 'commonjs colors/safe',
+    };
+    let sut = null;
+    let reducer = null;
+    let result = null;
+    // When
+    sut = new ProjextAngularJSPlugin();
+    sut.register(app);
+    [,, [, reducer]] = events.on.mock.calls;
+    result = reducer(initialExternals, { target });
+    // Then
+    expect(result).toEqual(Object.assign({}, initialExternals, {
+      angular: 'commonjs angular',
+    }));
   });
 });
