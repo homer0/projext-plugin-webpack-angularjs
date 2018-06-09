@@ -13,7 +13,7 @@ class ProjextAngularJSPlugin {
      * @access protected
      * @ignore
      */
-    this._externalSettingsEventName = 'webpack-externals-configuration';
+    this._externalSettingsEventName = 'webpack-externals-configuration-for-browser';
     /**
      * The list of AngularJS packages that should never end up on the bundle if the target is a
      * library.
@@ -233,10 +233,7 @@ class ProjextAngularJSPlugin {
    */
   _updateExternals(currentExternals, target) {
     let updatedExternals;
-    if (
-      target.framework === this._frameworkProperty &&
-      (target.is.node || target.library)
-    ) {
+    if (target.framework === this._frameworkProperty && target.library) {
       updatedExternals = Object.assign({}, currentExternals);
       this._externalModules.forEach((name) => {
         updatedExternals[name] = `commonjs ${name}`;

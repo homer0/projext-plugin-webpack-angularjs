@@ -30,7 +30,7 @@ describe('plugin:projextAngularJS/main', () => {
     let sut = null;
     const expectedEvents = [
       'babel-configuration',
-      'webpack-externals-configuration',
+      'webpack-externals-configuration-for-browser',
       'target-default-html-settings',
     ];
     const expectedServices = Object.keys(services);
@@ -53,11 +53,9 @@ describe('plugin:projextAngularJS/main', () => {
     const events = {
       on: jest.fn(),
     };
-    const targets = 'targets';
     const babelHelper = 'babelHelper';
     const services = {
       events,
-      targets,
       babelHelper,
     };
     const app = {
@@ -84,14 +82,12 @@ describe('plugin:projextAngularJS/main', () => {
     const events = {
       on: jest.fn(),
     };
-    const targets = 'targets';
     const babelHelper = {
       addEnvPresetFeature: jest.fn((config, features) => Object.assign({}, config, { features })),
       addPlugin: jest.fn((config, name) => Object.assign({}, config, { plugin: name })),
     };
     const services = {
       events,
-      targets,
       babelHelper,
     };
     const app = {
@@ -338,42 +334,6 @@ describe('plugin:projextAngularJS/main', () => {
     expect(result).toEqual(initialExternals);
   });
 
-  it('should include the AngularJS packages on the externals for a Node target', () => {
-    // Given
-    const events = {
-      on: jest.fn(),
-    };
-    const babelHelper = 'babelHelper';
-    const services = {
-      events,
-      babelHelper,
-    };
-    const app = {
-      get: jest.fn((service) => services[service]),
-    };
-    const target = {
-      framework: 'angularjs',
-      is: {
-        node: true,
-      },
-    };
-    const initialExternals = {
-      'colors/safe': 'commonjs colors/safe',
-    };
-    let sut = null;
-    let reducer = null;
-    let result = null;
-    // When
-    sut = new ProjextAngularJSPlugin();
-    sut.register(app);
-    [,, [, reducer]] = events.on.mock.calls;
-    result = reducer(initialExternals, { target });
-    // Then
-    expect(result).toEqual(Object.assign({}, initialExternals, {
-      angular: 'commonjs angular',
-    }));
-  });
-
   it('should include the AngularJS packages on the externals for a browser library target', () => {
     // Given
     const events = {
@@ -389,9 +349,6 @@ describe('plugin:projextAngularJS/main', () => {
     };
     const target = {
       framework: 'angularjs',
-      is: {
-        node: false,
-      },
       library: true,
     };
     const initialExternals = {
