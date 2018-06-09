@@ -6,9 +6,11 @@
 /**
  * @external {Target}
  * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target
+ * @ignore
  */
 
 /**
  * @external {TargetDefaultHTMLSettings}
  * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings
+ * @ignore
  */
