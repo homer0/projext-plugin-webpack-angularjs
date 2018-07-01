@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 357,
+  "end": 379,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 15,
+      "line": 17,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 357,
+    "end": 379,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 15,
+        "line": 17,
         "column": 0
       }
     },
@@ -49,32 +49,32 @@
       },
       {
         "type": "CommentBlock",
-        "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n ",
+        "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n * @ignore\n ",
         "start": 104,
-        "end": 210,
+        "end": 221,
         "loc": {
           "start": {
             "line": 6,
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 10,
             "column": 3
           }
         }
       },
       {
         "type": "CommentBlock",
-        "value": "*\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n ",
-        "start": 212,
-        "end": 356,
+        "value": "*\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n * @ignore\n ",
+        "start": 223,
+        "end": 378,
         "loc": {
           "start": {
-            "line": 11,
+            "line": 12,
             "column": 0
           },
           "end": {
-            "line": 14,
+            "line": 16,
             "column": 3
           }
         }
@@ -100,32 +100,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n ",
+      "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n * @ignore\n ",
       "start": 104,
-      "end": 210,
+      "end": 221,
       "loc": {
         "start": {
           "line": 6,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 10,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n ",
-      "start": 212,
-      "end": 356,
+      "value": "*\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n * @ignore\n ",
+      "start": 223,
+      "end": 378,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 12,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 16,
           "column": 3
         }
       }
@@ -150,32 +150,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n ",
+      "value": "*\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n * @ignore\n ",
       "start": 104,
-      "end": 210,
+      "end": 221,
       "loc": {
         "start": {
           "line": 6,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 10,
           "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n ",
-      "start": 212,
-      "end": 356,
+      "value": "*\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n * @ignore\n ",
+      "start": 223,
+      "end": 378,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 12,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 16,
           "column": 3
         }
       }
@@ -193,15 +193,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 357,
-      "end": 357,
+      "start": 379,
+      "end": 379,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 0
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 0
         }
       }

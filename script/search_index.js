@@ -300,63 +300,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/plugin.js~projextangularjsplugin#babelloadername",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-babelLoaderName",
-    "src/plugin.js~ProjextAngularJSPlugin#babelLoaderName",
-    "member"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#babelrequiredincludedfeatures",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-babelRequiredIncludedFeatures",
-    "src/plugin.js~ProjextAngularJSPlugin#babelRequiredIncludedFeatures",
-    "member"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#frameworkoptions",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-frameworkOptions",
-    "src/plugin.js~ProjextAngularJSPlugin#frameworkOptions",
-    "member"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#frameworkproperty",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-frameworkProperty",
-    "src/plugin.js~ProjextAngularJSPlugin#frameworkProperty",
-    "member"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#htmlsettingseventname",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-htmlSettingsEventName",
-    "src/plugin.js~ProjextAngularJSPlugin#htmlSettingsEventName",
-    "member"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#loadername",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-loaderName",
-    "src/plugin.js~ProjextAngularJSPlugin#loaderName",
-    "member"
+    "src/plugin.js~projextangularjsplugin#constructor",
+    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-constructor-constructor",
+    "src/plugin.js~ProjextAngularJSPlugin#constructor",
+    "method"
   ],
   [
     "src/plugin.js~projextangularjsplugin#register",
     "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-register",
     "src/plugin.js~ProjextAngularJSPlugin#register",
-    "method"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#ruleseventname",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-member-rulesEventName",
-    "src/plugin.js~ProjextAngularJSPlugin#rulesEventName",
-    "member"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#updatehtmlsettings",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-updateHTMLSettings",
-    "src/plugin.js~ProjextAngularJSPlugin#updateHTMLSettings",
-    "method"
-  ],
-  [
-    "src/plugin.js~projextangularjsplugin#updaterules",
-    "class/src/plugin.js~ProjextAngularJSPlugin.html#instance-method-updateRules",
-    "src/plugin.js~ProjextAngularJSPlugin#updateRules",
     "method"
   ],
   [
@@ -369,18 +321,6 @@ window.esdocSearchIndex = [
     "src/typedef.js~projext",
     "https://homer0.github.io/projext/class/src/app/index.js~Projext.html",
     "src/typedef.js~Projext",
-    "external"
-  ],
-  [
-    "src/typedef.js~target",
-    "https://homer0.github.io/projext/typedef/index.html#static-typedef-Target",
-    "src/typedef.js~Target",
-    "external"
-  ],
-  [
-    "src/typedef.js~targetdefaulthtmlsettings",
-    "https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings",
-    "src/typedef.js~TargetDefaultHTMLSettings",
     "external"
   ]
 ]

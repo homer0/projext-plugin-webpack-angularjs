@@ -569,7 +569,7 @@
     "name": "src/index.js",
     "content": "const ProjextAngularJSPlugin = require('./plugin');\n/**\n * This is the method called by projext when loading the plugin. It takes care of creating\n * a new instance of the plugin class and use it to register for the required events.\n * @param {Projext} app The projext main container.\n * @ignore\n */\nconst loadPlugin = (app) => {\n  const plugin = new ProjextAngularJSPlugin();\n  plugin.register(app);\n};\n\nmodule.exports = loadPlugin;\n",
     "static": true,
-    "longname": "/Users/homer0/CODE/Node/projext/projext-plugin-webpack-angularjs/src/index.js",
+    "longname": "/Users/homer0/CODE/node/projext/projext-plugin-webpack-angularjs/src/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -608,9 +608,9 @@
     "__docId__": 50,
     "kind": "file",
     "name": "src/plugin.js",
-    "content": "/**\n * This service is in charge of adding the required loader to handle AngularJS inject annotations\n * and updating a target Babel configuration so the loader will work.\n */\nclass ProjextAngularJSPlugin {\n  /**\n   * Class constructor.\n   * @ignore\n   */\n  constructor() {\n    /**\n     * The name of the reducer event this service uses to intercept a rules configuration in order\n     * to update it.\n     * @type {string}\n     */\n    this.rulesEventName = 'webpack-js-rules-configuration-for-browser';\n    /**\n     * The name of the reducer event this service uses to intercept a browser target default HTML\n     * file settings and update them.\n     * @type {string}\n     */\n    this.htmlSettingsEventName = 'target-default-html-settings';\n    /**\n     * The required value a target `framework` setting needs to have in order for the service to\n     * take action.\n     * @type {string}\n     */\n    this.frameworkProperty = 'angularjs';\n    /**\n     * The default values for the options a target can use to customize the default HTML projext\n     * generates.\n     * @type {Object}\n     * @property {?string} title         A custom value for the `<title />` tag. If the target\n     *                                   doesn't define it, the plugin will use the one projext\n     *                                   sets by default (The name of the target).\n     * @property {?string} appName       The value of the `ng-app` attribute. If the target\n     *                                   doesn't define it, the plugin will convert the name of\n     *                                   the target to `lowerCamelCase` and use that instead.\n     * @property {boolean} strict        Whether the app tag should include the `ng-strict-di`\n     *                                   directive or not.\n     * @property {boolean} cloak         Whether the app tag should include the `ng-cloak`\n     *                                   directive or not.\n     * @property {boolean} useBody       Whether or not the `body` should be used as the app tag\n     *                                   (`ng-app`).\n     * @property {?string} mainComponent The name of a component that should be added inside the\n     *                                   app tag.\n     */\n    this.frameworkOptions = {\n      title: null,\n      appName: null,\n      strict: true,\n      cloak: true,\n      useBody: true,\n      mainComponent: 'main',\n    };\n    /**\n     * The name of the loader the plugin adds to the Webpack configuration.\n     * @type {string}\n     */\n    this.loaderName = 'ng-annotate-loader';\n    /**\n     * The name of the loader with the Babel configurations.\n     * @type {string}\n     */\n    this.babelLoaderName = 'babel-loader';\n    /**\n     * The list of transformations the loader needs in order to work. The loader only works with\n     * standard `function` statements, so it's necessary for Babel to transpile the following things\n     * into `function`s so the loader can inject the annotations.\n     * @type {Array}\n     */\n    this.babelRequiredIncludedFeatures = [\n      'transform-es2015-arrow-functions',\n      'transform-es2015-classes',\n      'transform-es2015-parameters',\n    ];\n  }\n  /**\n   * This is the method called when the plugin is loaded by projext. It just gets the events service\n   * and registers the listeners for the reducer events that handle the JS rules for browser\n   * targets and generate a target the default HTML file.\n   * @param {Projext} app The projext main container.\n   */\n  register(app) {\n    const events = app.get('events');\n    // Rules event.\n    events.on(\n      this.rulesEventName,\n      (rules, params) => this.updateRules(rules, params.target)\n    );\n    // HTML event.\n    events.on(\n      this.htmlSettingsEventName,\n      (settings, target) => this.updateHTMLSettings(settings, target)\n    );\n  }\n  /**\n   * This method gets called when Projext reduces the JS rules for browser targets. It\n   * validates the target, adds the plugin loader and modifies, if necessary, the configuration for\n   * Babel.\n   * @param {Array}  currentRules The list of JS rules for the Webpack configuration.\n   * @param {Target} target         The target information.\n   * @return {Array} The updated list of rules.\n   */\n  updateRules(currentRules, target) {\n    let updatedRules;\n    /**\n     * If the target has a valid type, the right `framework` setting and there are rules\n     * to modify...\n     */\n    if (\n      target.is.browser &&\n      target.framework === this.frameworkProperty &&\n      currentRules.length\n    ) {\n      // ...copy the list of rules.\n      updatedRules = currentRules.slice();\n      // Get the first rule of the list (there's usually only one).\n      const [baseJSRule] = updatedRules;\n      // Push the AngularJS loader as first on the rule list of loaders.\n      baseJSRule.use.unshift(this.loaderName);\n      // Get the index of the Babel loader.\n      const babelLoaderIndex = this._findBabelLoaderIndex(baseJSRule.use);\n      // If the Babel loader is preset...\n      if (babelLoaderIndex > -1) {\n        // ...replace it with an updated version.\n        baseJSRule.use[babelLoaderIndex] = this._updateBabelLoader(\n          baseJSRule.use[babelLoaderIndex]\n        );\n      }\n    } else {\n      // ...otherwise, just set to return the received rules.\n      updatedRules = currentRules;\n    }\n\n    return updatedRules;\n  }\n  /**\n   * Read the settings projext is using to build browser target default HTML file and update them\n   * based on the framework options defined by the target in order to run an AngularJS app.\n   * @param {TargetDefaultHTMLSettings} currentSettings The settings projext uses to build a target\n   *                                                    default HTML file.\n   * @param {Target}                    target          The target information.\n   * @return {TargetDefaultHTMLSettings}\n   */\n  updateHTMLSettings(currentSettings, target) {\n    let updatedSettings;\n    // If the target has a valid type and the right `framework`...\n    if (target.is.browser && target.framework === this.frameworkProperty) {\n      // ...copy the list of rules.\n      updatedSettings = Object.assign({}, currentSettings);\n      // Get a lowerCamelCase name for the AngularJS app by parsing the target name.\n      const appName = target.name.replace(/-(\\w)/ig, (match, letter) => letter.toUpperCase());\n      // Merge the default options with any overwrite the target may have.\n      const options = Object.assign(\n        {},\n        this.frameworkOptions,\n        { appName },\n        (target.frameworkOptions || {})\n      );\n      // If there's a custom title on the options, set it.\n      if (options.title) {\n        updatedSettings.title = options.title;\n      }\n\n      // Define the attributes list of the app tag.\n      const attributesList = [`ng-app=\"${options.appName}\"`];\n      // - Check if the app will run with strict mode.\n      if (options.strict) {\n        attributesList.push('ng-strict-di');\n      }\n      // - Check if the app should hide the template while rendering.\n      if (options.cloak) {\n        attributesList.push('ng-cloak');\n      }\n      // Format the attributes list into a string.\n      const attributes = attributesList.join(' ');\n      /**\n       * If a main component was defined, generate an opening and closing tag for it, otherwise just\n       * keep it as an empty string.\n       */\n      const mainComponent = options.mainComponent ?\n        `<${options.mainComponent}></${options.mainComponent}>` :\n        '';\n      // If the app tag should be the `body`...\n      if (options.useBody) {\n        // ...set the app tag attributes to the `body`.\n        updatedSettings.bodyAttributes = attributes;\n        // Set the main component as the contents of the `body`.\n        updatedSettings.bodyContents = mainComponent;\n      } else {\n        /**\n         * ...otherwise, create `div` with the app tag attributes, with the main component inside it\n         * and set it as the content of the `body`.\n         */\n        updatedSettings.bodyContents = `<div id=\"app\" ${attributes}>${mainComponent}</div>`;\n      }\n    } else {\n      // ...otherwise, just set to return the received settings.\n      updatedSettings = currentSettings;\n    }\n    // Return the updated settings.\n    return updatedSettings;\n  }\n  /**\n   * Finds the index of the Babel loader on a list of loaders.\n   * @param {Array} loaders The list of loaders.\n   * @return {number}\n   * @ignore\n   * @access protected\n   */\n  _findBabelLoaderIndex(loaders) {\n    return loaders.findIndex((loader) => {\n      const isString = typeof loader === 'string';\n      return (isString && loader === this.babelLoaderName) ||\n        (!isString && loader.loader === this.babelLoaderName);\n    });\n  }\n  /**\n   * Updates an existing Babel loader configuration with the required transformations the\n   * AngularJS loader needs in order to work.\n   * The method will only modify the loader if is not on a string format, has an `options`\n   * object and doesn't have any preset or has the `env` preset.\n   * @param {Object|string} babelLoader The loader to update.\n   * @return {Object|string}\n   * @ignore\n   * @access protected\n   */\n  _updateBabelLoader(babelLoader) {\n    let updatedLoader;\n    /**\n     * If the loader is a `string` or it doesn't have an `options` property, then the project uses\n     * an external `.babelrc`, so it won't be updated.\n     */\n    if (typeof babelLoader !== 'string' && babelLoader.options) {\n      // Access the loader options.\n      const { options } = babelLoader;\n      // Define some validation flags.\n      let needsPresets = false;\n      let hasEnvPreset = false;\n      let envPresetIndex = -1;\n      // If there are presets options...\n      if (options.presets && options.presets.length) {\n        // ...find the index of the `env` preset.\n        envPresetIndex = options.presets.findIndex((preset) => {\n          const [presetName] = preset;\n          return presetName === 'env';\n        });\n        // Validate that the `env` preset is on the options.\n        hasEnvPreset = envPresetIndex > -1;\n      } else {\n        // ...otherwise, the options needs presets.\n        needsPresets = true;\n      }\n      // If there's an `env` preset to configure or no presets at all...\n      if (needsPresets || hasEnvPreset) {\n        // ...start updating the options.\n        let presetOptions;\n        // If there are no presets...\n        if (needsPresets) {\n          // ...create an empty object to work with.\n          presetOptions = {};\n        } else {\n          // ...otherwise, get the current `env` preset configuration.\n          const [, currentEnvPresetOptions] = options.presets[envPresetIndex];\n          // copy the configuration into a new reference.\n          presetOptions = Object.assign({}, currentEnvPresetOptions);\n        }\n        /**\n         * From this point forward, we assume we have a configuration for the `env` preset.\n         * If the configuration already has an `include` setting...\n         */\n        if (presetOptions.include) {\n          // ...we only push the required transformations that are not already present.\n          this.babelRequiredIncludedFeatures.forEach((feature) => {\n            if (!presetOptions.include.includes(feature)) {\n              presetOptions.include.push(feature);\n            }\n          });\n        } else {\n          // ...we copy the list of required transformations.\n          presetOptions.include = this.babelRequiredIncludedFeatures.slice();\n        }\n        // Set the object to be returned as a copy of the one received.\n        updatedLoader = Object.assign({}, babelLoader);\n        // Declare the new `env` preset.\n        const newEnvPreset = ['env', presetOptions];\n        // If it didn't have any presets...\n        if (needsPresets) {\n          // ...create a new presets list with the new `env` preset.\n          updatedLoader.options.presets = [newEnvPreset];\n        } else {\n          // ...otherwise, replace the existing `env` preset with the new and updated one.\n          updatedLoader.options.presets[envPresetIndex] = newEnvPreset;\n        }\n      } else {\n        updatedLoader = babelLoader;\n      }\n    } else {\n      updatedLoader = babelLoader;\n    }\n\n    return updatedLoader;\n  }\n}\n\nmodule.exports = ProjextAngularJSPlugin;\n",
+    "content": "/**\n * It updates targets Babel configuration in order to add support for AngularJS annotations.\n */\nclass ProjextAngularJSPlugin {\n  /**\n   * Class constructor.\n   */\n  constructor() {\n    /**\n     * The name of the reducer event the service will listen for in order to exclude AngularJS\n     * packages from the bundle when the target is a library.\n     * @type {string}\n     * @access protected\n     * @ignore\n     */\n    this._externalSettingsEventName = 'webpack-externals-configuration-for-browser';\n    /**\n     * The list of AngularJS packages that should never end up on the bundle if the target is a\n     * library.\n     * @type {Array}\n     * @access protected\n     * @ignore\n     */\n    this._externalModules = ['angular'];\n    /**\n     * The name of the reducer event the service will listen for in order to add support for\n     * AngularJS annotations.\n     * @type {string}\n     * @access protected\n     * @ignore\n     */\n    this._babelConfigurationEvent = 'babel-configuration';\n    /**\n     * The list of Babel plugins that need to be added in order to add support for AngularJS\n     * annotations.\n     * @type {Array}\n     * @access protected\n     * @ignore\n     */\n    this._babelPlugin = ['angularjs-annotate', { explicitOnly: true }];\n    /**\n     * The list of transformations the AngularJS annotations plugin needs in order to work. The\n     * plugin only works with standard `function` statements, so it's necessary for Babel to\n     * transpile the following things into `function`s so the annotations can be injected.\n     * @type {Array}\n     * @access protected\n     * @ignore\n     */\n    this._babelRequiredEnvFeatures = [\n      'transform-es2015-arrow-functions',\n      'transform-es2015-classes',\n      'transform-es2015-parameters',\n    ];\n    /**\n     * The name of the reducer event the service uses to intercept a browser target default HTML\n     * file settings.\n     * @type {string}\n     * @access protected\n     * @ignore\n     */\n    this._htmlSettingsEventName = 'target-default-html-settings';\n    /**\n     * The required value a target `framework` setting needs to have in order for the service to\n     * take action.\n     * @type {string}\n     * @access protected\n     * @ignore\n     */\n    this._frameworkProperty = 'angularjs';\n    /**\n     * The default values for the options a target can use to customize the default HTML projext\n     * generates.\n     * @type {Object}\n     * @property {?string} title         A custom value for the `<title />` tag. If the target\n     *                                   doesn't define it, the plugin will use the one projext\n     *                                   sets by default (The name of the target).\n     * @property {?string} appName       The value of the `ng-app` attribute. If the target\n     *                                   doesn't define it, the plugin will convert the name of\n     *                                   the target to `lowerCamelCase` and use that instead.\n     * @property {boolean} strict        Whether the app tag should include the `ng-strict-di`\n     *                                   directive or not.\n     * @property {boolean} cloak         Whether the app tag should include the `ng-cloak`\n     *                                   directive or not.\n     * @property {boolean} useBody       Whether or not the `body` should be used as the app tag\n     *                                   (`ng-app`).\n     * @property {?string} mainComponent The name of a component that should be added inside the\n     *                                   app tag.\n     * @access protected\n     * @ignore\n     */\n    this._frameworkOptions = {\n      title: null,\n      appName: null,\n      strict: true,\n      cloak: true,\n      useBody: true,\n      mainComponent: 'main',\n    };\n  }\n  /**\n   * This is the method called when the plugin is loaded by projext. It setups all the listeners\n   * for the events the plugin needs to intercept in order to:\n   * 1. Add support for AngularJS annotations.\n   * 2. Exclude AngularJS packages from the bundle when the target is a library.\n   * 3. Generate the settings for a target default HTML.\n   * @param {Projext} app The projext main container.\n   */\n  register(app) {\n    // Get the `events` service to listen for the events.\n    const events = app.get('events');\n    // Get the `babelHelper` to send to the method that adds support for AngularJS annotations.\n    const babelHelper = app.get('babelHelper');\n    // Add the listener for the target Babel configuration.\n    events.on(this._babelConfigurationEvent, (configuration, target) => (\n      this._updateBabelConfiguration(configuration, target, babelHelper)\n    ));\n    // Add the listener for the default HTML settings.\n    events.on(this._htmlSettingsEventName, (settings, target) => (\n      this._updateHTMLSettings(settings, target)\n    ));\n    // Add the listener for the event that updates the external dependencies.\n    events.on(this._externalSettingsEventName, (externals, params) => (\n      this._updateExternals(externals, params.target)\n    ));\n  }\n  /**\n   * This method gets called when projext reduces a target Babel configuration. The method will\n   * validate the target settings and add the Babel plugins needed for JSX.\n   * @param {Object}      currentConfiguration The current Babel configuration for the target.\n   * @param {Target}      target               The target information.\n   * @param {BabelHelper} babelHelper          To update the target configuration and add the\n   *                                           required preset and plugin.\n   * @return {Object} The updated configuration.\n   * @access protected\n   * @ignore\n   */\n  _updateBabelConfiguration(currentConfiguration, target, babelHelper) {\n    let updatedConfiguration;\n    if (target.framework === this._frameworkProperty) {\n      updatedConfiguration = babelHelper.addEnvPresetFeature(\n        currentConfiguration,\n        this._babelRequiredEnvFeatures\n      );\n      updatedConfiguration = babelHelper.addPlugin(\n        updatedConfiguration,\n        this._babelPlugin\n      );\n    } else {\n      updatedConfiguration = currentConfiguration;\n    }\n\n    return updatedConfiguration;\n  }\n  /**\n   * Read the settings projext is using to build browser target default HTML file and update them\n   * based on the framework options defined by the target in order to run an AngularJS app.\n   * @param {TargetDefaultHTMLSettings} currentSettings The settings projext uses to build a target\n   *                                                    default HTML file.\n   * @param {Target}                    target          The target information.\n   * @return {TargetDefaultHTMLSettings}\n   * @access protected\n   * @ignore\n   */\n  _updateHTMLSettings(currentSettings, target) {\n    let updatedSettings;\n    // If the target has a valid type and the right `framework`...\n    if (target.is.browser && target.framework === this._frameworkProperty) {\n      // ...copy the list of rules.\n      updatedSettings = Object.assign({}, currentSettings);\n      // Get a lowerCamelCase name for the AngularJS app by parsing the target name.\n      const appName = target.name.replace(/-(\\w)/ig, (match, letter) => letter.toUpperCase());\n      // Merge the default options with any overwrite the target may have.\n      const options = Object.assign(\n        {},\n        this._frameworkOptions,\n        { appName },\n        (target.frameworkOptions || {})\n      );\n      // If there's a custom title on the options, set it.\n      if (options.title) {\n        updatedSettings.title = options.title;\n      }\n\n      // Define the attributes list of the app tag.\n      const attributesList = [`ng-app=\"${options.appName}\"`];\n      // - Check if the app will run with strict mode.\n      if (options.strict) {\n        attributesList.push('ng-strict-di');\n      }\n      // - Check if the app should hide the template while rendering.\n      if (options.cloak) {\n        attributesList.push('ng-cloak');\n      }\n      // Format the attributes list into a string.\n      const attributes = attributesList.join(' ');\n      /**\n       * If a main component was defined, generate an opening and closing tag for it, otherwise just\n       * keep it as an empty string.\n       */\n      const mainComponent = options.mainComponent ?\n        `<${options.mainComponent}></${options.mainComponent}>` :\n        '';\n      // If the app tag should be the `body`...\n      if (options.useBody) {\n        // ...set the app tag attributes to the `body`.\n        updatedSettings.bodyAttributes = attributes;\n        // Set the main component as the contents of the `body`.\n        updatedSettings.bodyContents = mainComponent;\n      } else {\n        /**\n         * ...otherwise, create `div` with the app tag attributes, with the main component inside it\n         * and set it as the content of the `body`.\n         */\n        updatedSettings.bodyContents = `<div id=\"app\" ${attributes}>${mainComponent}</div>`;\n      }\n    } else {\n      // ...otherwise, just set to return the received settings.\n      updatedSettings = currentSettings;\n    }\n    // Return the updated settings.\n    return updatedSettings;\n  }\n  /**\n   * This method gets called when the webpack plugin reduces the list of modules that should be\n   * handled as external dependencies. The method validates the target settings and if it's a\n   * Node target or a browser library, it pushes the AngularJS packages to the list.\n   * @param {Object} currentExternals A dictionary of external dependencies with the format\n   *                                  webpack uses: `{ 'module': 'commonjs module'}`.\n   * @param {Target} target           The target information.\n   * @return {Object} The updated externals dictionary.\n   * @access protected\n   * @ignore\n   */\n  _updateExternals(currentExternals, target) {\n    let updatedExternals;\n    if (target.framework === this._frameworkProperty && target.library) {\n      updatedExternals = Object.assign({}, currentExternals);\n      this._externalModules.forEach((name) => {\n        updatedExternals[name] = `commonjs ${name}`;\n      });\n    } else {\n      updatedExternals = currentExternals;\n    }\n\n    return updatedExternals;\n  }\n}\n\nmodule.exports = ProjextAngularJSPlugin;\n",
     "static": true,
-    "longname": "/Users/homer0/CODE/Node/projext/projext-plugin-webpack-angularjs/src/plugin.js",
+    "longname": "/Users/homer0/CODE/node/projext/projext-plugin-webpack-angularjs/src/plugin.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -626,8 +626,8 @@
     "export": true,
     "importPath": "projext-plugin-webpack-angularjs/src/plugin.js",
     "importStyle": "ProjextAngularJSPlugin",
-    "description": "This service is in charge of adding the required loader to handle AngularJS inject annotations\nand updating a target Babel configuration so the loader will work.",
-    "lineNumber": 5,
+    "description": "It updates targets Babel configuration in order to add support for AngularJS annotations.",
+    "lineNumber": 4,
     "interface": false
   },
   {
@@ -641,19 +641,19 @@
     "longname": "src/plugin.js~ProjextAngularJSPlugin#constructor",
     "access": "public",
     "description": "Class constructor.",
-    "lineNumber": 10,
-    "ignore": true
+    "lineNumber": 8
   },
   {
     "__docId__": 53,
     "kind": "member",
-    "name": "rulesEventName",
+    "name": "_externalSettingsEventName",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#rulesEventName",
-    "access": "public",
-    "description": "The name of the reducer event this service uses to intercept a rules configuration in order\nto update it.",
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_externalSettingsEventName",
+    "access": "protected",
+    "description": "The name of the reducer event the service will listen for in order to exclude AngularJS\npackages from the bundle when the target is a library.",
     "lineNumber": 16,
+    "ignore": true,
     "type": {
       "nullable": null,
       "types": [
@@ -666,17 +666,18 @@
   {
     "__docId__": 54,
     "kind": "member",
-    "name": "htmlSettingsEventName",
+    "name": "_externalModules",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#htmlSettingsEventName",
-    "access": "public",
-    "description": "The name of the reducer event this service uses to intercept a browser target default HTML\nfile settings and update them.",
-    "lineNumber": 22,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_externalModules",
+    "access": "protected",
+    "description": "The list of AngularJS packages that should never end up on the bundle if the target is a\nlibrary.",
+    "lineNumber": 24,
+    "ignore": true,
     "type": {
       "nullable": null,
       "types": [
-        "string"
+        "Array"
       ],
       "spread": false,
       "description": null
@@ -685,13 +686,14 @@
   {
     "__docId__": 55,
     "kind": "member",
-    "name": "frameworkProperty",
+    "name": "_babelConfigurationEvent",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#frameworkProperty",
-    "access": "public",
-    "description": "The required value a target `framework` setting needs to have in order for the service to\ntake action.",
-    "lineNumber": 28,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_babelConfigurationEvent",
+    "access": "protected",
+    "description": "The name of the reducer event the service will listen for in order to add support for\nAngularJS annotations.",
+    "lineNumber": 32,
+    "ignore": true,
     "type": {
       "nullable": null,
       "types": [
@@ -704,13 +706,94 @@
   {
     "__docId__": 56,
     "kind": "member",
-    "name": "frameworkOptions",
+    "name": "_babelPlugin",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#frameworkOptions",
-    "access": "public",
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_babelPlugin",
+    "access": "protected",
+    "description": "The list of Babel plugins that need to be added in order to add support for AngularJS\nannotations.",
+    "lineNumber": 40,
+    "ignore": true,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "_babelRequiredEnvFeatures",
+    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_babelRequiredEnvFeatures",
+    "access": "protected",
+    "description": "The list of transformations the AngularJS annotations plugin needs in order to work. The\nplugin only works with standard `function` statements, so it's necessary for Babel to\ntranspile the following things into `function`s so the annotations can be injected.",
+    "lineNumber": 49,
+    "ignore": true,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "_htmlSettingsEventName",
+    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_htmlSettingsEventName",
+    "access": "protected",
+    "description": "The name of the reducer event the service uses to intercept a browser target default HTML\nfile settings.",
+    "lineNumber": 61,
+    "ignore": true,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "_frameworkProperty",
+    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_frameworkProperty",
+    "access": "protected",
+    "description": "The required value a target `framework` setting needs to have in order for the service to\ntake action.",
+    "lineNumber": 69,
+    "ignore": true,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "member",
+    "name": "_frameworkOptions",
+    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
+    "static": false,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_frameworkOptions",
+    "access": "protected",
     "description": "The default values for the options a target can use to customize the default HTML projext\ngenerates.",
-    "lineNumber": 48,
+    "lineNumber": 91,
+    "ignore": true,
     "properties": [
       {
         "nullable": true,
@@ -783,64 +866,7 @@
     }
   },
   {
-    "__docId__": 57,
-    "kind": "member",
-    "name": "loaderName",
-    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
-    "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#loaderName",
-    "access": "public",
-    "description": "The name of the loader the plugin adds to the Webpack configuration.",
-    "lineNumber": 60,
-    "type": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 58,
-    "kind": "member",
-    "name": "babelLoaderName",
-    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
-    "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#babelLoaderName",
-    "access": "public",
-    "description": "The name of the loader with the Babel configurations.",
-    "lineNumber": 65,
-    "type": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 59,
-    "kind": "member",
-    "name": "babelRequiredIncludedFeatures",
-    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
-    "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#babelRequiredIncludedFeatures",
-    "access": "public",
-    "description": "The list of transformations the loader needs in order to work. The loader only works with\nstandard `function` statements, so it's necessary for Babel to transpile the following things\ninto `function`s so the loader can inject the annotations.",
-    "lineNumber": 72,
-    "type": {
-      "nullable": null,
-      "types": [
-        "Array"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 60,
+    "__docId__": 61,
     "kind": "method",
     "name": "register",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
@@ -849,8 +875,8 @@
     "static": false,
     "longname": "src/plugin.js~ProjextAngularJSPlugin#register",
     "access": "public",
-    "description": "This is the method called when the plugin is loaded by projext. It just gets the events service\nand registers the listeners for the reducer events that handle the JS rules for browser\ntargets and generate a target the default HTML file.",
-    "lineNumber": 84,
+    "description": "This is the method called when the plugin is loaded by projext. It setups all the listeners\nfor the events the plugin needs to intercept in order to:\n1. Add support for AngularJS annotations.\n2. Exclude AngularJS packages from the bundle when the target is a library.\n3. Generate the settings for a target default HTML.",
+    "lineNumber": 108,
     "params": [
       {
         "nullable": null,
@@ -866,27 +892,28 @@
     "return": null
   },
   {
-    "__docId__": 61,
+    "__docId__": 62,
     "kind": "method",
-    "name": "updateRules",
+    "name": "_updateBabelConfiguration",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#updateRules",
-    "access": "public",
-    "description": "This method gets called when Projext reduces the JS rules for browser targets. It\nvalidates the target, adds the plugin loader and modifies, if necessary, the configuration for\nBabel.",
-    "lineNumber": 105,
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_updateBabelConfiguration",
+    "access": "protected",
+    "description": "This method gets called when projext reduces a target Babel configuration. The method will\nvalidate the target settings and add the Babel plugins needed for JSX.",
+    "lineNumber": 137,
+    "ignore": true,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array"
+          "Object"
         ],
         "spread": false,
         "optional": false,
-        "name": "currentRules",
-        "description": "The list of JS rules for the Webpack configuration."
+        "name": "currentConfiguration",
+        "description": "The current Babel configuration for the target."
       },
       {
         "nullable": null,
@@ -897,29 +924,40 @@
         "optional": false,
         "name": "target",
         "description": "The target information."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "BabelHelper"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "babelHelper",
+        "description": "To update the target configuration and add the\n                                          required preset and plugin."
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "Array"
+        "Object"
       ],
       "spread": false,
-      "description": "The updated list of rules."
+      "description": "The updated configuration."
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 63,
     "kind": "method",
-    "name": "updateHTMLSettings",
+    "name": "_updateHTMLSettings",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#updateHTMLSettings",
-    "access": "public",
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_updateHTMLSettings",
+    "access": "protected",
     "description": "Read the settings projext is using to build browser target default HTML file and update them\nbased on the framework options defined by the target in order to run an AngularJS app.",
-    "lineNumber": 146,
+    "lineNumber": 164,
+    "ignore": true,
     "params": [
       {
         "nullable": null,
@@ -952,82 +990,56 @@
     }
   },
   {
-    "__docId__": 63,
-    "kind": "method",
-    "name": "_findBabelLoaderIndex",
-    "memberof": "src/plugin.js~ProjextAngularJSPlugin",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#_findBabelLoaderIndex",
-    "access": "protected",
-    "description": "Finds the index of the Babel loader on a list of loaders.",
-    "lineNumber": 212,
-    "ignore": true,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Array"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "loaders",
-        "description": "The list of loaders."
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "number"
-      ],
-      "spread": false,
-      "description": ""
-    }
-  },
-  {
     "__docId__": 64,
     "kind": "method",
-    "name": "_updateBabelLoader",
+    "name": "_updateExternals",
     "memberof": "src/plugin.js~ProjextAngularJSPlugin",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/plugin.js~ProjextAngularJSPlugin#_updateBabelLoader",
+    "longname": "src/plugin.js~ProjextAngularJSPlugin#_updateExternals",
     "access": "protected",
-    "description": "Updates an existing Babel loader configuration with the required transformations the\nAngularJS loader needs in order to work.\nThe method will only modify the loader if is not on a string format, has an `options`\nobject and doesn't have any preset or has the `env` preset.",
-    "lineNumber": 229,
+    "description": "This method gets called when the webpack plugin reduces the list of modules that should be\nhandled as external dependencies. The method validates the target settings and if it's a\nNode target or a browser library, it pushes the AngularJS packages to the list.",
+    "lineNumber": 234,
     "ignore": true,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Object",
-          "string"
+          "Object"
         ],
         "spread": false,
         "optional": false,
-        "name": "babelLoader",
-        "description": "The loader to update."
+        "name": "currentExternals",
+        "description": "A dictionary of external dependencies with the format\n                                 webpack uses: `{ 'module': 'commonjs module'}`."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Target"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "target",
+        "description": "The target information."
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "Object",
-        "string"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "The updated externals dictionary."
     }
   },
   {
     "__docId__": 65,
     "kind": "file",
     "name": "src/typedef.js",
-    "content": "/**\n * @external {Projext}\n * https://homer0.github.io/projext/class/src/app/index.js~Projext.html\n */\n\n/**\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n */\n\n/**\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n */\n",
+    "content": "/**\n * @external {Projext}\n * https://homer0.github.io/projext/class/src/app/index.js~Projext.html\n */\n\n/**\n * @external {Target}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-Target\n * @ignore\n */\n\n/**\n * @external {TargetDefaultHTMLSettings}\n * https://homer0.github.io/projext/typedef/index.html#static-typedef-TargetDefaultHTMLSettings\n * @ignore\n */\n",
     "static": true,
-    "longname": "/Users/homer0/CODE/Node/projext/projext-plugin-webpack-angularjs/src/typedef.js",
+    "longname": "/Users/homer0/CODE/node/projext/projext-plugin-webpack-angularjs/src/typedef.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1052,7 +1064,8 @@
     "static": true,
     "longname": "src/typedef.js~Target",
     "access": "public",
-    "description": ""
+    "description": "",
+    "ignore": true
   },
   {
     "__docId__": 68,
@@ -1063,20 +1076,21 @@
     "static": true,
     "longname": "src/typedef.js~TargetDefaultHTMLSettings",
     "access": "public",
-    "description": ""
+    "description": "",
+    "ignore": true
   },
   {
     "kind": "index",
-    "content": "# projext plugin for AngularJS on webpack\n\nAllows you to bundle an [AngularJS](https://angularjs.org) project with [projext](https://yarnpkg.com/en/package/projext) using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).\n\n## Introduction\n\n[projext](https://yarnpkg.com/en/package/projext) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).\n\nIt adds the [`ng-annotate-loader`](https://yarnpkg.com/en/package/ng-annotate-loader) package to your target configuration and takes care of updating the [`babel-loader`](https://yarnpkg.com/en/package/babel-loader) so the make the target transpilation compatible with the annotations loader.\n\nNow you can use the `ngInject` directive on your code to inject your dependencies\n\n```js\nclass MyService {\n  constructor($http, $q) {\n    'ngInject';\n\n    this.$http = $http;\n    this.$q = $q;\n    ...\n  }\n  ...\n}\n```\n\n## Information\n\n| -            | -                                                                                      |\n|--------------|----------------------------------------------------------------------------------------|\n| Package      | projext-plugin-webpack-angularjs                                                       |\n| Description  | Allows you to bundle an AngularJS project with projext using the webpack build engine. |\n| Node Version | >= v6.10.0                                                                             |\n\n## Usage\n\n1. You first need the build engine, so install [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack).\n2. If you changed it, set your target `engine` setting to `webpack`.\n3. Add a new setting to your target named `framework` and set its value to `angularjs`.\n4. Done\n\nNow, when your target gets builded, the plugin will check if the target is using webpack and if the framework is AngularJS, then it will add the required loader and configure the transpilation options.\n\n### Babel\n\nThe [`ng-annotate-loader`](https://yarnpkg.com/en/package/ng-annotate-loader) package only works on `function` statements, that's why it needs to update the configuration of the [`babel-loader`](https://yarnpkg.com/en/package/babel-loader) in order to work.\n\nLet's say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn't be transpiled.\n\nIf for some reason you are overwriting the [Babel](https://babeljs.io) configuration projext generates, you need to make sure the following transformations are included:\n\n- `transform-es2015-arrow-functions`\n- `transform-es2015-classes`\n- `transform-es2015-parameters`\n\n### Default HTML\n\nIf you didn't create an HTML file for your AngularJS app, projext will create one for you and this plugin will take care of updating the contents of that HTML so you can run your app right away.\n\nNow, there are a few options you can change in order to customize the way the HTML is generated: You can create a `frameworkOptions` property on your target configuration and set the following values:\n\n```js\n{\n  frameworkOptions: {\n    title: null,\n    appName: null,\n    strict: true,\n    cloak: true,\n    useBody: true,\n    mainComponent: 'main',\n  }\n}\n```\n\n- `title`: A custom title for the HTML file. By default, projext, uses the name of the target.\n- `appName`: A custom name of the [`ng-app` attribute](https://docs.angularjs.org/api/ng/directive/ngApp). By default, the plugin will convert te target name to `lowerCamelCase` and use that.\n- `strict`: Whether or not you want to use the [`ng-strict-di` directive](https://docs.angularjs.org/api/ng/directive/ngApp#with-ngstrictdi-).\n- `cloak`: Whether or not you want to use the [`ng-cloak` directive](https://docs.angularjs.org/api/ng/directive/ngCloak).\n- `useBody`: Whether to add the `ng-app` attribute and the directives on the `<body />` or on a `<div />` inside it.\n- `mainComponent`: The tag name of a component that should be inside the _\"app tag\"_.\n\n## Development\n\nBefore doing anything, install the repository hooks:\n\n```bash\n# You can either use npm or yarn, it doesn't matter\nnpm run install-hooks\n```\n\n### NPM/Yarn Tasks\n\n| Task                    | Description                         |\n|-------------------------|-------------------------------------|\n| `npm run install-hooks` | Install the GIT repository hooks.   |\n| `npm test`              | Run the project unit tests.         |\n| `npm run lint`          | Lint the modified files.            |\n| `npm run lint:full`     | Lint the project code.              |\n| `npm run docs`          | Generate the project documentation. |\n\n### Testing\n\nI use [Jest](https://facebook.github.io/jest/) with [Jest-Ex](https://yarnpkg.com/en/package/jest-ex) to test the project. The configuration file is on `./.jestrc`, the tests and mocks are on `./tests` and the script that runs it is on `./utils/scripts/test`.\n\n### Linting\n\nI use [ESlint](http://eslint.org) to validate all our JS code. The configuration file for the project code is on `./.eslintrc` and for the tests on `./tests/.eslintrc` (which inherits from the one on the root), there's also an `./.eslintignore` to ignore some files on the process, and the script that runs it is on `./utils/scripts/lint`.\n\n### Documentation\n\nI use [ESDoc](http://esdoc.org) to generate HTML documentation for the project. The configuration file is on `./.esdocrc` and the script that runs it is on `./utils/scripts/docs`.\n",
-    "longname": "/Users/homer0/CODE/Node/projext/projext-plugin-webpack-angularjs/README.md",
+    "content": "# projext plugin for AngularJS on webpack\n\n[![Travis](https://img.shields.io/travis/homer0/projext-plugin-webpack-angularjs.svg?style=flat-square)](https://travis-ci.org/homer0/projext-plugin-webpack-angularjs)\n[![Coveralls github](https://img.shields.io/coveralls/github/homer0/projext-plugin-webpack-angularjs.svg?style=flat-square)](https://coveralls.io/github/homer0/projext-plugin-webpack-angularjs?branch=master)\n[![David](https://img.shields.io/david/homer0/projext-plugin-webpack-angularjs.svg?style=flat-square)](https://david-dm.org/homer0/projext-plugin-webpack-angularjs)\n[![David](https://img.shields.io/david/dev/homer0/projext-plugin-webpack-angularjs.svg?style=flat-square)](https://david-dm.org/homer0/projext-plugin-webpack-angularjs)\n\nAllows you to bundle an [AngularJS](https://angularjs.org) project with [projext](https://yarnpkg.com/en/package/projext) using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).\n\n## Introduction\n\n[projext](https://yarnpkg.com/en/package/projext) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).\n\nIt adds the [`angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) plugin to the [Babel](https://babeljs.io) configuration in order to support AngularJS annotations.\n\nNow you can use the `ngInject` directive on your code to inject your dependencies\n\n```js\nclass MyService {\n  constructor($http, $q) {\n    'ngInject';\n\n    this.$http = $http;\n    this.$q = $q;\n    ...\n  }\n  ...\n}\n```\n\n## Information\n\n| -            | -                                                                                      |\n|--------------|----------------------------------------------------------------------------------------|\n| Package      | projext-plugin-webpack-angularjs                                                       |\n| Description  | Allows you to bundle an AngularJS project with projext using the webpack build engine. |\n| Node Version | >= v6.10.0                                                                             |\n\n## Usage\n\n1. You first need the build engine, so install [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack).\n2. Add a new setting to your target named `framework` and set its value to `angularjs`.\n3. Done\n\nNow, when your target gets builded, the plugin will check if the target is using webpack and if the framework is AngularJS, then it will add the required loader and configure the transpilation options.\n\n### Babel\n\nThe [`babel-plugin-angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) package only works on `function` statements, that's why it needs to update the configuration of the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) in order to work.\n\nLet's say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn't be transpiled.\n\nIf for some reason you are overwriting the [Babel](https://babeljs.io) configuration projext generates, you need to make sure the following transformations are included:\n\n- `transform-es2015-arrow-functions`\n- `transform-es2015-classes`\n- `transform-es2015-parameters`\n\n### External dependencies\n\nWhen bundling your targets, the plugin will check if the target is for Node or if it is a browser library and automatically exclude the AngularJS package so it doesn't end up on your build.\n\n### Default HTML\n\nIf you didn't create an HTML file for your AngularJS app, projext will create one for you and this plugin will take care of updating the contents of that HTML so you can run your app right away.\n\nNow, there are a few options you can change in order to customize the way the HTML is generated: You can create a `frameworkOptions` property on your target configuration and set the following values:\n\n```js\n{\n  frameworkOptions: {\n    title: null,\n    appName: null,\n    strict: true,\n    cloak: true,\n    useBody: true,\n    mainComponent: 'main',\n  }\n}\n```\n\n- `title`: A custom title for the HTML file. By default, projext, uses the name of the target.\n- `appName`: A custom name of the [`ng-app` attribute](https://docs.angularjs.org/api/ng/directive/ngApp). By default, the plugin will convert te target name to `lowerCamelCase` and use that.\n- `strict`: Whether or not you want to use the [`ng-strict-di` directive](https://docs.angularjs.org/api/ng/directive/ngApp#with-ngstrictdi-).\n- `cloak`: Whether or not you want to use the [`ng-cloak` directive](https://docs.angularjs.org/api/ng/directive/ngCloak).\n- `useBody`: Whether to add the `ng-app` attribute and the directives on the `<body />` or on a `<div />` inside it.\n- `mainComponent`: The tag name of a component that should be inside the _\"app tag\"_.\n\n## Development\n\nBefore doing anything, install the repository hooks:\n\n```bash\n# You can either use npm or yarn, it doesn't matter\nyarn run hooks\n```\n\n### Yarn/NPM Tasks\n\n| Task                    | Description                         |\n|-------------------------|-------------------------------------|\n| `yarn run hooks`        | Install the GIT repository hooks.   |\n| `yarn test`             | Run the project unit tests.         |\n| `yarn run lint`         | Lint the modified files.            |\n| `yarn run lint:full`    | Lint the project code.              |\n| `yarn run docs`         | Generate the project documentation. |\n\n### Testing\n\nI use [Jest](https://facebook.github.io/jest/) with [Jest-Ex](https://yarnpkg.com/en/package/jest-ex) to test the project. The configuration file is on `./.jestrc`, the tests and mocks are on `./tests` and the script that runs it is on `./utils/scripts/test`.\n\n### Linting\n\nI use [ESlint](http://eslint.org) to validate all our JS code. The configuration file for the project code is on `./.eslintrc` and for the tests on `./tests/.eslintrc` (which inherits from the one on the root), there's also an `./.eslintignore` to ignore some files on the process, and the script that runs it is on `./utils/scripts/lint`.\n\n### Documentation\n\nI use [ESDoc](http://esdoc.org) to generate HTML documentation for the project. The configuration file is on `./.esdocrc` and the script that runs it is on `./utils/scripts/docs`.\n",
+    "longname": "/Users/homer0/CODE/node/projext/projext-plugin-webpack-angularjs/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n    \"name\": \"projext-plugin-webpack-angularjs\",\n    \"description\": \"Allows you to bundle an AngularJS project with projext using the webpack build engine.\",\n    \"homepage\": \"https://homer0.github.io/projext-plugin-webpack-angularjs/\",\n    \"version\": \"2.0.0\",\n    \"repository\": \"homer0/projext-plugin-webpack-angularjs\",\n    \"author\": \"Leonardo Apiwan (@homer0) <me@homer0.com>\",\n    \"license\": \"MIT\",\n    \"dependencies\": {\n      \"ng-annotate-loader\": \"0.6.1\"\n    },\n    \"peerDependencies\": {\n\n    },\n    \"devDependencies\": {\n      \"wootils\": \"^1.1.1\",\n      \"eslint\": \"4.16.0\",\n      \"eslint-config-airbnb-base\": \"12.1.0\",\n      \"eslint-plugin-import\": \"2.8.0\",\n      \"eslint-plugin-node\": \"5.2.1\",\n      \"babel-preset-env\": \"1.6.1\",\n      \"jest-ex\": \"4.0.0\",\n      \"jest-cli\": \"22.1.4\",\n      \"jasmine-expect\": \"3.8.3\",\n      \"esdoc\": \"1.0.4\",\n      \"esdoc-standard-plugin\": \"1.0.0\",\n      \"esdoc-node\": \"1.0.3\",\n      \"coveralls\": \"3.0.0\"\n    },\n    \"engine-strict\": true,\n    \"engines\": {\n      \"node\": \">=6.0.0\",\n      \"npm\": \">=3.0.0\"\n    },\n    \"main\": \"src/index.js\",\n    \"scripts\": {\n      \"install-hooks\": \"./utils/hooks/install\",\n      \"test\": \"./utils/scripts/test\",\n      \"lint\": \"./utils/scripts/lint\",\n      \"lint:full\": \"./utils/scripts/lint-full\",\n      \"docs\": \"./utils/scripts/docs\"\n    }\n}\n",
-    "longname": "/Users/homer0/CODE/Node/projext/projext-plugin-webpack-angularjs/package.json",
+    "content": "{\n    \"name\": \"projext-plugin-webpack-angularjs\",\n    \"description\": \"Allows you to bundle an AngularJS project with projext using the webpack build engine.\",\n    \"homepage\": \"https://homer0.github.io/projext-plugin-webpack-angularjs/\",\n    \"version\": \"3.0.0\",\n    \"repository\": \"homer0/projext-plugin-webpack-angularjs\",\n    \"author\": \"Leonardo Apiwan (@homer0) <me@homer0.com>\",\n    \"license\": \"MIT\",\n    \"dependencies\": {\n      \"babel-plugin-angularjs-annotate\": \"0.9.0\"\n    },\n    \"devDependencies\": {\n      \"wootils\": \"^1.3.2\",\n      \"eslint\": \"4.19.1\",\n      \"eslint-config-airbnb-base\": \"13.0.0\",\n      \"eslint-plugin-import\": \"2.12.0\",\n      \"eslint-plugin-node\": \"6.0.1\",\n      \"babel-preset-env\": \"1.7.0\",\n      \"jest-ex\": \"5.0.0\",\n      \"jest-cli\": \"23.1.0\",\n      \"jasmine-expect\": \"3.8.3\",\n      \"esdoc\": \"1.1.0\",\n      \"esdoc-standard-plugin\": \"1.0.0\",\n      \"esdoc-node\": \"1.0.3\",\n      \"coveralls\": \"3.0.1\"\n    },\n    \"engine-strict\": true,\n    \"engines\": {\n      \"node\": \">=6.0.0\",\n      \"npm\": \">=3.0.0\"\n    },\n    \"main\": \"src/index.js\",\n    \"scripts\": {\n      \"hooks\": \"./utils/hooks/install\",\n      \"test\": \"./utils/scripts/test\",\n      \"lint\": \"./utils/scripts/lint\",\n      \"lint:full\": \"./utils/scripts/lint-full\",\n      \"docs\": \"./utils/scripts/docs\"\n    }\n}\n",
+    "longname": "/Users/homer0/CODE/node/projext/projext-plugin-webpack-angularjs/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
