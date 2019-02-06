@@ -46,15 +46,15 @@ Now, when your target gets builded, the plugin will check if the target is using
 
 ### Babel
 
-The [`babel-plugin-angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) package only works on `function` statements, that's why it needs to update the configuration of the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) in order to work.
+The [`babel-plugin-angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) package only works on `function` statements, that's why it needs to update the configuration of the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env) in order to work.
 
 Let's say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn't be transpiled.
 
 If for some reason you are overwriting the [Babel](https://babeljs.io) configuration projext generates, you need to make sure the following transformations are included:
 
-- `transform-es2015-arrow-functions`
-- `transform-es2015-classes`
-- `transform-es2015-parameters`
+- `@babel/plugin-transform-arrow-functions`
+- `@babel/plugin-transform-classes`
+- `@babel/plugin-transform-parameters`
 
 ### External dependencies
 
