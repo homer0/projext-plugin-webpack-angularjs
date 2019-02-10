@@ -125,7 +125,7 @@ class ProjextAngularJSPlugin {
   }
   /**
    * This method gets called when projext reduces a target Babel configuration. The method will
-   * validate the target settings and add the Babel plugins needed for JSX.
+   * validate the target settings and add the Babel plugin needed for AngularJS annotations.
    * @param {Object}      currentConfiguration The current Babel configuration for the target.
    * @param {Target}      target               The target information.
    * @param {BabelHelper} babelHelper          To update the target configuration and add the
