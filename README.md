@@ -9,7 +9,7 @@ Allows you to bundle an [AngularJS](https://angularjs.org) project with [projext
 
 ## Introduction
 
-[projext](https://yarnpkg.com/en/package/projext) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).
+[projext](https://yarnpkg.com/en/package/projext) allows you to configure a project without adding specific settings for a module bundler, then you can decide which build engine to use. This plugin is meant to be used when you are bundling an [AngularJS](https://angularjs.org) application and you are using the [webpack](https://webpack.js.org) [build engine](https://yarnpkg.com/en/package/projext-plugin-webpack).
 
 It adds the [`angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) plugin to the [Babel](https://babeljs.io) configuration in order to support AngularJS annotations.
 
@@ -34,7 +34,7 @@ class MyService {
 |--------------|----------------------------------------------------------------------------------------|
 | Package      | projext-plugin-webpack-angularjs                                                       |
 | Description  | Allows you to bundle an AngularJS project with projext using the webpack build engine. |
-| Node Version | >= v6.10.0                                                                             |
+| Node Version | >= v8.0.0                                                                             |
 
 ## Usage
 
@@ -46,15 +46,15 @@ Now, when your target gets builded, the plugin will check if the target is using
 
 ### Babel
 
-The [`babel-plugin-angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) package only works on `function` statements, that's why it needs to update the configuration of the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) in order to work.
+The [`babel-plugin-angularjs-annotate`](https://yarnpkg.com/en/package/babel-plugin-angularjs-annotate) package only works on `function` statements, that's why it needs to update the configuration of the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env) in order to work.
 
 Let's say you are only supporting the last version of major browsers, well, most of them already support arrow functions and by default they wouldn't be transpiled.
 
 If for some reason you are overwriting the [Babel](https://babeljs.io) configuration projext generates, you need to make sure the following transformations are included:
 
-- `transform-es2015-arrow-functions`
-- `transform-es2015-classes`
-- `transform-es2015-parameters`
+- `@babel/plugin-transform-arrow-functions`
+- `@babel/plugin-transform-classes`
+- `@babel/plugin-transform-parameters`
 
 ### External dependencies
 
