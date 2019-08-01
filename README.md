@@ -88,18 +88,10 @@ Now, there are a few options you can change in order to customize the way the HT
 
 ## Development
 
-Before doing anything, install the repository hooks:
-
-```bash
-# You can either use npm or yarn, it doesn't matter
-yarn run hooks
-```
-
 ### Yarn/NPM Tasks
 
 | Task                    | Description                         |
 |-------------------------|-------------------------------------|
-| `yarn run hooks`        | Install the GIT repository hooks.   |
 | `yarn test`             | Run the project unit tests.         |
 | `yarn run lint`         | Lint the modified files.            |
 | `yarn run lint:full`    | Lint the project code.              |
