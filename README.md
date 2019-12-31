@@ -34,7 +34,7 @@ class MyService {
 |--------------|----------------------------------------------------------------------------------------|
 | Package      | projext-plugin-webpack-angularjs                                                       |
 | Description  | Allows you to bundle an AngularJS project with projext using the webpack build engine. |
-| Node Version | >= v8.0.0                                                                             |
+| Node Version | >= v10.13.0                                                                            |
 
 ## Usage
 
