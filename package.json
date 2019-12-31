@@ -2,7 +2,7 @@
   "name": "projext-plugin-webpack-angularjs",
   "description": "Allows you to bundle an AngularJS project with projext using the webpack build engine.",
   "homepage": "https://homer0.github.io/projext-plugin-webpack-angularjs/",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "repository": "homer0/projext-plugin-webpack-angularjs",
   "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
   "license": "MIT",
